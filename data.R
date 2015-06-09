@@ -27,7 +27,7 @@ total_n <- c(20, 8)
 
 #I'll be dividing each step of the calculations for each type of day, and do different 
 #calculations for the effort and catch parameters. I'm sure all of this could be simplified, 
-#but I'll leave it as is for the time being. 
+#but I'll leave it as it is for the first draft. 
 
 mean_eff <- c(mean(data$daily_eff[data$DayType == "Week"]), 
               mean(data$daily_eff[data$DayType == "Weekend"]))
@@ -61,3 +61,6 @@ overall_var_cat <- sum(var_total_cat)
 
 overall_se_eff <- sqrt(overall_var_eff)
 overall_se_cat <- sqrt(overall_var_cat)
+
+#I'll try to simplify operations and present the results in a table similiar
+#to the one in the text.
