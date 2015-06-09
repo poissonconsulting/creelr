@@ -1,8 +1,32 @@
 library(magrittr)
+library(dplyr)
+library(lubridate)
+library(assertthat)
+
 data <- read.csv("test.csv", stringsAsFactors = FALSE, sep = ";")
 
+day_type <- function (x) {
+  assert_that(is.date(x))
+  x %<>% lubridate::wday(label = TRUE, abbr = FALSE)
+  levels(x) <- list(Week = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
+                               Weekend = c("Saturday", "Sunday"))
+  x
+}
+
+nday_type_month <- function (month, year = 2000) {
+  assertthat::assert_that(is.count(month))
+  assertthat::assert_that(is.count(year))
+  
+  first <- as.Date(paste(year, month, 01, sep = "-"))
+  last <- as.Date(first + months(1) - days(1))
+  x <- seq(first, last, by = "day")
+  x %<>% day_type()
+  c(Week = sum(x == "Week"), Weekend = sum(x == "Weekend"))
+}
+
+# now gets daytype from Date!
 data$Date %<>% as.Date()
-data$DayType %<>% factor(levels = c("Week", "Weekend"))
+data$DayType <- day_type(data$Date)
 data$Period %<>% factor(levels = c("AM", "PM"))
 
 summary(data)
@@ -13,9 +37,15 @@ prob <- c(0.5, 0.5)
 data$Probability[data$Period == "AM"] <- prob[1]
 data$Probability[data$Period == "PM"] <- prob[2]
 
-data$daily_eff <- data$RodHours/data$Probability
-data$daily_cat <- data$Catch/data$Probability
+# uses the dplyr mutate function for faster and more readable code
+data %<>% dplyr::mutate(daily_eff = RodHours / Probability, daily_cat = Catch / Probability)
+#data$daily_eff <- data$RodHours/data$Probability
+#data$daily_cat <- data$Catch/data$Probability
 
+# gets number of days for month and year
+total_n <- nday_type_month(month(data$Date[1]), year(data$Date[1]))
+# we need to change the dates of the 
+# data so that they are for a february with 28 days where the first day is a Monday
 total_n <- c(20, 8)
 #There's gotta be a way we can calculate the total number of days from the data
 #given. Probably an R function that lets you know when a whole week is
