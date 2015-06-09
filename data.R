@@ -62,5 +62,52 @@ overall_var_cat <- sum(var_total_cat)
 overall_se_eff <- sqrt(overall_var_eff)
 overall_se_cat <- sqrt(overall_var_cat)
 
-#I'll try to simplify operations and present the results in a table similiar
-#to the one in the text.
+#----Second Approach------------
+
+#I'm making a data frame with variab referring to effort (1) or catch (2)
+# dt will be the day type, week = 1, weekend = 2
+#this way I can make a couple of for cycles and run the whole procedure in less lines
+#it will need the daily value for effort and catch, as well as the total number of days
+#calculated above
+
+total_n2 <- matrix(rep(total_n, 2), nrow = 2, byrow = T)
+
+variab <- c(rep(1, nrow(data)), rep(2, nrow(data)))
+dt <- rep(as.numeric(data$DayType),2)
+daily <- c(data$daily_eff, data$daily_cat)
+data2 <- data.frame(variab, dt, daily)
+
+mean_est <- matrix(0, nrow = 2, ncol = 2, dimnames = list(c("Effort", "Catch"), 
+                                                          c("Week", "Weekend")))
+var_est <- matrix(0, nrow = 2, ncol = 2, dimnames = list(c("Effort", "Catch"), 
+                                                         c("Week", "Weekend")))
+var_total <- matrix(0, nrow = 2, ncol = 2, dimnames = list(c("Effort", "Catch"), 
+                                                           c("Week", "Weekend")))
+se_total <- matrix(0, nrow = 2, ncol = 2, dimnames = list(c("Effort", "Catch"), 
+                                                          c("Week", "Weekend")))
+total_est <- matrix(0, nrow = 2, ncol = 2, dimnames = list(c("Effort", "Catch"), 
+                                                           c("Week", "Weekend")))
+overall_est <- matrix(0, nrow = 2, ncol = 1, dimnames = list(c("Effort", "Catch"), 
+                                                             NULL))
+overall_var <- matrix(0, nrow = 2, ncol = 1, dimnames = list(c("Effort", "Catch"), 
+                                                             NULL))
+
+for (i in 1:2) {
+  for (j in 1:2) {
+    mean_est[i, j] <- mean(data2$daily[data2$variab == i & data2$dt == j])
+    var_est[i, j] <- var(data2$daily[data2$variab == i & data2$dt == j]) / 
+      length(data2$dt[data2$dt == j & data2$variab == i])
+    var_total[i, j] <- total_n2[i, j]^2 * var_est[i, j]
+    se_total[i, j] <- sqrt(var_total[i, j])
+    total_est[i, j] <- total_n2[i, j] * mean_est[i, j]
+  }
+  overall_est[i, ] <- sum(total_est[i, ])
+  overall_var[i, ] <- sum(var_total[i, ])
+}
+overall_se <- sqrt(overall_var)
+
+mean_est
+total_est
+se_total
+overall_est
+overall_se
