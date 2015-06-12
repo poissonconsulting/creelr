@@ -29,8 +29,7 @@ trad_one_access <- function (data, prob = c(0.5, 0.5)) {
   data$DayType <- day_type(data$Date)
   data$Period %<>% factor(levels = c("AM", "PM"))
   
-  data$Probability[data$Period == "AM"] <- prob[1]
-  data$Probability[data$Period == "PM"] <- prob[2]
+  data$Probability <- prob[as.integer(data$Period)]
   data %<>% dplyr::mutate(daily_eff = RodHours / Probability, daily_cat = Catch / Probability)
   
   totaln <- nday_type_month(month(data$Date[1]), year(data$Date[1]))
