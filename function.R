@@ -3,6 +3,8 @@ library(dplyr)
 library(lubridate)
 library(assertthat)
 
+data <- read.csv("test.csv", stringsAsFactors = FALSE, sep = ";")
+
 day_type <- function (x) {
   assert_that(is.date(x))
   x %<>% lubridate::wday(label = TRUE, abbr = FALSE)
