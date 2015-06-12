@@ -24,12 +24,12 @@ nday_type_month <- function (month, year = 2000) {
   c(Week = sum(x == "Week"), Weekend = sum(x == "Weekend"))
 }
 
-trad_one_access <- function (data, prob = c(0.5, 0.5)) {
+trad_one_access <- function (data, am = 0.5) {
   data$Date %<>% as.Date()
   data$DayType <- day_type(data$Date)
   data$Period %<>% factor(levels = c("AM", "PM"))
   
-  data$Probability <- prob[as.integer(data$Period)]
+  data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   data %<>% dplyr::mutate(daily_eff = RodHours / Probability, daily_cat = Catch / Probability)
   
   totaln <- nday_type_month(month(data$Date[1]), year(data$Date[1]))
