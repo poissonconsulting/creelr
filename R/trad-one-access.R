@@ -1,10 +1,3 @@
-library(magrittr)
-library(dplyr)
-library(lubridate)
-library(assertthat)
-
-data <- read.csv("test.csv", stringsAsFactors = FALSE, sep = ";")
-
 day_type <- function (x) {
   assert_that(is.date(x))
   x %<>% lubridate::wday(label = TRUE, abbr = FALSE)
@@ -14,25 +7,38 @@ day_type <- function (x) {
 }
 
 nday_type_month <- function (month, year = 2000) {
-  assertthat::assert_that(is.count(month))
-  assertthat::assert_that(is.count(year))
+  assert_that(is.count(month))
+  assert_that(is.count(year))
   
   first <- as.Date(paste(year, month, 01, sep = "-"))
-  last <- as.Date(first + months(1) - days(1))
+  last <- as.Date(first + months(1) - lubridate::days(1))
   x <- seq(first, last, by = "day")
   x %<>% day_type()
   c(Week = sum(x == "Week"), Weekend = sum(x == "Weekend"))
 }
 
+#' Title
+#'
+#' @param data A data.frame xx
+#' @param am A flag indicating xx
+#'
+#' @return A data.frame with xx
+#' @export
+#'
+#' @examples
+#' data(toa_dummy)
+#' trad_one_access(toa_dummy)
 trad_one_access <- function (data, am = 0.5) {
   data$Date %<>% as.Date()
   data$DayType <- day_type(data$Date)
   data$Period %<>% factor(levels = c("AM", "PM"))
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
-  data %<>% dplyr::mutate(daily_eff = RodHours / Probability, daily_cat = Catch / Probability)
+  data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
+                           "daily_cat" = "Catch / Probability")
   
-  totaln <- nday_type_month(month(data$Date[1]), year(data$Date[1]))
+  totaln <- nday_type_month(lubridate::month(data$Date[1]), 
+                            lubridate::year(data$Date[1]))
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
   
   variab <- c(rep(1, nrow(data)), rep(2, nrow(data)))
@@ -78,7 +84,3 @@ attr(result, "totals_se") <- se_total
 result
 
 }
-
-res <- trad_one_access(data)
-res
-attr(res, "daily_means")
