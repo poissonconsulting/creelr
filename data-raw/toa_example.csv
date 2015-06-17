@@ -1,0 +1,124 @@
+ID;Survey;Year;Month;Day;Time;Shift;DayType;Cloud ;Wind;Precip;Anglers; Rods;Total Person Hr Fished;RodHours;TotalCaught;KOCatch;CTCatch;RBCatch;BTCatch;LTCatch;OtherCatch;Kept;KORelease;CTRelease;RBRelease;BTRelease;LTRelease;OTherRelease;Gear;Vessel;Method;Sought
+1;1;2014;May;6;11:20;AM;WK;Overcast;0;None;2;2;8;8;10;10;0;0;0;0;0;8;8;0;0;0;0;0;Flies;Boat;Trolling;KO
+2;2;2014;May;6;13:30;AM;WK;Overcast;0;None;1;2;3;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;KO
+3;1;2014;May;11;15:30;PM;WKND;Clear;0;None;1;1;3;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Both;NP
+4;2;2014;May;11;15:45;PM;WKND;Clear;0;None;2;2;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Both;NP
+5;3;2014;May;11;16:00;PM;WKND;Clear;0;None;3;3;8;8;2;1;1;0;0;0;0;2;1;1;0;0;0;0;Lures;Boat;Trolling;KO + CT
+6;4;2014;May;11;16:50;PM;WKND;Clear;0;None;2;3;10;15;1;1;0;0;0;0;0;1;1;0;0;0;0;0;Both;Boat;Trolling;KO + LT
+7;5;2014;May;11;17:51;PM;WKND;Clear;0;None;2;2;4;4;1;1;0;0;0;0;0;1;1;0;0;0;0;0;Both;Boat;Trolling;KO
+8;6;2014;May;11;17:00;PM;WKND;Clear;0;None;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO + RB
+9;7;2014;May;11;18:20;PM;WKND;Clear;0;None;3;3;18;18;2;1;1;0;0;0;0;2;1;1;0;0;0;0;Lures;Boat;Trolling;NP
+10;8;2014;May;11;18:40;PM;WKND;Clear;0;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;NP
+11;9;2014;May;11;19:30;PM;WKND;Clear;0;None;2;2;7;7;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Flies;Boat;Casting;KO
+12;10;2014;May;11;19:40;PM;WKND;Clear;0;None;2;2;8;8;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Flies;Boat;Trolling;KO
+13;1;2014;May;12;15:30;PM;WK;Clear;0;None;2;2;12;12;4;4;0;0;0;0;0;3;3;0;0;0;0;0;Lures;Boat;Trolling;KO
+14;2;2014;May;12;15:50;PM;WK;Clear;0;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO + BT
+15;3;2014;May;12;16:25;PM;WK;Clear;0;None;2;2;7;7;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO
+16;4;2014;May;12;17:25;PM;WK;Clear;0;None;1;1;7;7;1;0;1;0;0;0;0;1;0;1;0;0;0;0;Both;Boat;Trolling;NP
+17;5;2014;May;12;19:45;PM;WK;Clear;0;None;3;3;9;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Casting;NP
+18;6;2014;May;12;19:50;PM;WK;Clear;0;None;1;2;6;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO
+19;1;2014;May;16;10:00;AM;WKND;Clear;0;None;2;2;4;4;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Shore;Casting;NP
+20;2;2014;May;16;11:00;AM;WKND;Clear;3;None;2;2;8;8;6;6;0;0;0;0;0;6;6;0;0;0;0;0;Lures;Boat;Trolling;
+21;1;2014;May;21;13:10;AM;WK;Partly Cloudy;0;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO
+22;1;2014;May;29;16:00;PM;WK;Overcast;0;Light Rain;3;3;15;15;2;1;0;0;0;0;1;1;1;0;0;0;0;0;Flies;Boat;Trolling;KO
+23;2;2014;May;29;19:45;PM;WK;Overcast;0;None;2;2;10;10;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+24;1;2014;May;31;11:00;AM;WKND;Clear;3;None;2;2;8;8;4;3;0;1;0;0;0;4;3;0;1;0;0;0;Flies;Boat;Trolling;KO + RB
+25;2;2014;May;31;13:00;AM;WKND;Clear;0;None;2;2;10;10;8;8;0;0;0;0;0;3;3;0;0;0;0;0;Flies;Boat;Trolling;KO
+26;3;2014;May;31;13:15;AM;WKND;Clear;3;None;2;2;9.5;9.5;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+27;4;2014;May;31;13:30;AM;WKND;Clear;3;None;2;2;7;7;2;2;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+28;5;2014;May;31;13:35;AM;WKND;Clear;3;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+29;6;2014;May;31;13:40;AM;WKND;Clear;3;None;2;2;7;7;2;0;0;0;0;0;2;0;;0;0;0;0;0;Lures;Boat;Casting;NP
+30;7;2014;May;31;14:00;AM;WKND;Clear;1;None;4;4;11;11;3;3;0;0;0;0;0;2;2;0;0;0;0;0;Both;Boat;Trolling;KO
+31;8;2014;May;31;14:15;AM;WKND;Clear;1;None;1;1;7;7;0;0;0;0;0;0;0;0;;0;0;0;0;0;Lures;Boat;Trolling;KO
+32;1;2014;Jun;3;10:15;AM;WK;Overcast;0;None;2;2;5;5;15;15;0;0;0;0;0;9;9;0;0;0;0;0;Lures;Boat;Trolling;KO
+33;2;2014;Jun;3;11:30;AM;WK;Overcast;0;None;2;2;7;7;10;10;0;0;0;0;0;10;10;0;0;0;0;0;Bait;Boat;Trolling;KO
+34;3;2014;Jun;3;14:20;AM;WK;Partly Cloudy;0;None;1;2;5;10;12;2;0;0;0;0;10;2;2;0;0;0;0;0;Bait;Boat;Trolling;KO
+35;1;2014;Jun;6;09:30;AM;WKND;Clear;2;None;2;2;6;6;10;10;0;0;0;0;0;10;10;0;0;0;0;0;Flies;Boat;Trolling;KO
+36;2;2014;Jun;6;11:00;AM;WKND;Partly Cloudy;0;None;1;2;6;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+37;3;2014;Jun;6;12:00;AM;WKND;Overcast;3;None;2;2;6;6;2;2;0;0;0;0;0;2;2;0;0;0;0;0;Both;Boat;Trolling;KO
+38;4;2014;Jun;6;13:15;AM;WKND;Clear;3;None;2;2;8;8;4;4;0;0;0;0;0;4;4;0;0;0;0;0;Lures;Boat;Trolling;KO
+39;5;2014;Jun;6;13:45;AM;WKND;Clear;3;None;2;2;8;8;1;0;0;1;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+40;1;2014;Jun;10;15:40;PM;WK;Overcast;0;Rain;1;1;4;4;1;0;0;1;0;0;0;1;0;0;1;0;0;0;Lures;Belly boat;Casting;LT
+41;2;2014;Jun;10;16:00;PM;WK;Overcast;0;Rain;2;2;13;13;7;7;0;0;0;0;0;5;5;0;0;0;0;0;Lures;Boat;Trolling;KO
+42;3;2014;Jun;10;19:30;PM;WK;Overcast;0;None;1;1;3;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Belly boat;Casting;KO
+43;1;2014;Jun;15;15:00;PM;WKND;Overcast;0;Rain;2;2;12;12;13;13;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+44;2;2014;Jun;15;15:10;PM;WKND;Overcast;0;Rain;2;2;2.5;2.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+45;3;2014;Jun;15;15:15;PM;WKND;Overcast;0;Rain;1;2;3;6;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+46;4;2014;Jun;15;15:45;PM;WKND;Overcast;0;Rain;1;2;6.5;13;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Flies;Boat;Casting;NP
+47;5;2014;Jun;15;15:47;PM;WKND;Overcast;0;Light Rain;2;2;7;7;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Both;Boat;Trolling;KO + CT
+48;6;2014;Jun;15;15:50;PM;WKND;Overcast;0;Light Rain;3;3;12;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Belly boat;Casting;CT
+49;7;2014;Jun;15;16:00;PM;WKND;Overcast;0;Light Rain;4;4;20;20;12;12;0;0;0;0;0;12;12;0;0;0;0;0;Lures;Boat;Trolling;KO
+50;8;2014;Jun;15;16:20;PM;WKND;Overcast;0;Light Rain;2;2;8;8;2;2;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+51;9;2014;Jun;15;16:30;PM;WKND;Overcast;0;None;2;2;10;10;10;9;1;0;0;0;0;9;8;1;0;0;0;0;Lures;Boat;Trolling;KO
+52;10;2014;Jun;15;18:45;PM;WKND;Overcast;0;Light Rain;3;3;6;6;4;4;0;0;0;0;0;4;4;0;0;0;0;0;Lures;Boat;Trolling;KO
+53;1;2014;Jun;18;11:14;AM;WK;Overcast;0;None;1;2;1;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+54;2;2014;Jun;18;13:30;AM;WK;Overcast;0;None;1;1;10;10;1;0;0;0;0;0;1;1;0;0;0;0;0;1;Lures;Shore;Casting;NP
+55;3;2014;Jun;18;14:45;AM;WK;Overcast;2;None;5;3;20;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Flies;Boat;Trolling;KO
+56;4;2014;Jun;18;14:50;AM;WK;Overcast;2;None;2;2;13;13;14;10;0;0;0;0;4;10;10;0;0;0;0;0;Lures;Boat;Trolling;KO
+57;1;2014;Jun;20;11:03;AM;WKND;Overcast;0;None;2;2;7;7;14;12;2;0;0;0;0;13;11;2;0;0;0;0;Lures;Boat;Trolling;KO
+58;2;2014;Jun;20;13:00;AM;WKND;Overcast;0;None;1;1;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+59;3;2014;Jun;20;13:15;AM;WKND;Overcast;0;None;3;3;8.25;8.25;1;1;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+60;4;2014;Jun;20;13:22;AM;WKND;Overcast;0;None;2;2;5;5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+61;5;2014;Jun;20;13:45;AM;WKND;Overcast;0;None;3;3;10.25;10.25;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Flies;Boat;Trolling;NP
+62;6;2014;Jun;20;14:00;AM;WKND;Overcast;0;None;1;2;5;10;4;1;0;2;0;0;1;4;1;0;2;0;0;1;Both;Boat;Trolling;KO
+63;7;2014;Jun;20;14:13;AM;WKND;Overcast;0;None;6;3;18;9;3;3;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+64;8;2014;Jun;20;14:45;AM;WKND;Overcast;0;None;2;2;13.5;13.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO
+65;9;2014;Jun;20;14:50;AM;WKND;Overcast;0;None;2;2;15;15;1;0;1;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;CT
+66;1;2014;Jun;23;16:00;PM;WK;Overcast;2;None;2;2;12;12;7;6;0;1;0;0;0;7;6;0;1;0;0;0;Lures;Boat;Trolling;KO
+67;2;2014;Jun;23;16:15;PM;WK;Overcast;2;None;2;2;16.5;16.5;3;3;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+68;3;2014;Jun;23;19:30;PM;WK;Overcast;2;None;3;3;19.5;19.5;2;0;0;1;0;1;0;0;0;0;0;0;0;0;Both;Boat;Trolling;KO + RB
+69;4;2014;Jun;23;19:45;PM;WK;Overcast;2;None;2;2;7.5;7.5;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO + RB
+70;1;2014;Jun;28;18:25;PM;WKND;Overcast;0;None;2;2;9;9;1;0;1;0;0;0;0;1;0;0;0;0;0;0;Flies;Boat;Trolling;RB
+71;2;2014;Jun;28;00:00;PM;WKND;Overcast;0;None;3;3;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Both;Boat;Trolling;NP
+72;3;2014;Jun;28;19:40;PM;WKND;Overcast;0;None;2;2;6;6;2;2;0;0;0;0;0;2;2;0;0;0;0;0;Bait;Boat;Trolling;KO
+73;1;2014;Jul;2;18:00;PM;WK;Clear;0;None;2;2;14;14;2;0;0;0;0;0;2;0;0;0;0;0;0;0;Both;Boat;Trolling;RB
+74;2;2014;Jul;2;20:05;PM;WK;Clear;0;None;1;2;2;4;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+75;1;2014;Jul;6;11:26;AM;WKND;Overcast;1;None;2;2;7;7;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+76;2;2014;Jul;6;12:07;AM;WKND;Overcast;1;Drizzle;2;1;7;3.5;1;1;0;0;0;0;0;1;1;0;0;0;0;0;Lures;Boat;Trolling;KO
+77;3;2014;Jul;6;12:30;AM;WKND;Overcast;0;Drizzle;2;2;5.5;5.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+78;4;2014;Jul;6;13:02;AM;WKND;Overcast;0;Rain;2;2;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+79;1;2014;Jul;8;12:09;AM;WK;Clear;2;None;1;1;4.5;4.5;5;5;0;0;0;0;0;5;5;0;0;0;0;0;Flies;Boat;Trolling;KO
+80;1;2014;Jul;11;15:07;PM;WKND;Clear;5;None;2;2;14;14;12;12;0;0;0;0;0;6;6;0;0;0;0;0;Lures;Boat;Trolling;KO
+81;2;2014;Jul;11;05:20;PM;WKND;Clear;2;None;3;3;9;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+82;3;2014;Jul;11;17:30;PM;WKND;Clear;2;None;2;2;9;9;4;4;0;0;0;0;0;4;4;0;0;0;0;0;Lures;Boat;Trolling;RB
+83;4;2014;Jul;11;18:30;PM;WKND;Clear;1;None;2;2;8;8;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+84;1;2014;Jul;14;16:10;PM;WK;Clear;3;None;1;1;1.5;1.5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+85;2;2014;Jul;14;18:24;PM;WK;Clear;1;None;2;2;0.75;0.75;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Casting;NP
+86;3;2014;Jul;14;19:51;PM;WK;Clear;1;None;1;1;2;2;1;1;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+87;1;2014;Jul;18;12:05;AM;WKND;Partly Cloudy;2;None;3;3;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;NP
+88;2;2014;Jul;18;13:41;AM;WKND;Partly Cloudy;2;None;1;1;4.5;4.5;9;0;0;0;0;0;9;4;0;0;0;0;0;4;Bait;Shore;Casting;NP
+89;1;2014;Jul;24;13:33;AM;WK;Overcast;0;None;2;2;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+90;1;2014;Jul;27;15:56;PM;WKND;Clear;0;None;2;2;4;4;3;0;0;3;0;0;0;0;0;0;0;0;0;0;Flies;Boat;Trolling;KO
+91;2;2014;Jul;27;18:36;PM;WKND;Clear;0;None;2;2;12;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;RB
+92;3;2014;Jul;27;18:39;PM;WKND;Clear;0;None;2;2;3;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+93;1;2014;Jul;30;16:38;PM;WK;Clear;5;None;2;2;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+94;2;2014;Jul;30;19:53;PM;WK;Clear;1;None;1;2;6;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+95;1;2014;Aug;1;11:23;AM;WKND;Partly Cloudy;4;None;2;2;5;5;3;0;0;0;0;0;3;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+96;2;2014;Aug;1;11:37;AM;WKND;Partly Cloudy;5;None;2;2;5;5;3;3;0;0;0;0;0;2;2;0;0;0;0;0;Lures;Boat;Trolling;KO
+97;1;2014;Aug;7;11:00;AM;WK;Clear;2;None;1;1;0.5;0.5;2;0;1;0;1;0;0;0;0;0;0;0;0;0;Bait;Boat;Casting;RB
+98;2;2014;Aug;7;12:47;AM;WK;Clear;3;None;1;1;1;1;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Lures;Shore;Casting;NP
+99;3;2014;Aug;7;13:05;AM;WK;Clear;3;None;2;2;4;4;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+100;1;2014;Aug;9;14:18;PM;WKND;Clear;3;None;1;1;5;5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+101;2;2014;Aug;9;19:44;PM;WKND;Clear;1;None;2;2;4;4;2;2;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+102;1;2014;Aug;21;11:50;AM;WK;Partly Cloudy;4;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;KO
+103;1;2014;Aug;24;15:15;PM;WKND;Partly Cloudy;4;None;3;3;5;5;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Bait;Boat;Casting;NP
+104;2;2014;Aug;24;15:25;PM;WKND;Partly Cloudy;4;None;2;2;6;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;CT
+105;3;2014;Aug;24;19:38;PM;WKND;Partly Cloudy;1;None;3;3;7.5;7.5;1;0;0;0;1;0;0;1;0;0;0;1;0;0;Lures;Boat;Trolling;RB
+106;1;2014;Aug;25;15:22;PM;WK;Partly Cloudy;2;None;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;RB
+107;2;2014;Aug;25;16:54;PM;WK;Partly Cloudy;1;None;1;1;7;7;1;0;0;0;0;0;1;1;0;0;0;0;0;1;Flies;Boat;Trolling;NP
+108;3;2014;Aug;25;18:41;PM;WK;Partly Cloudy;0;None;2;2;4;4;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;Shore;Casting;NP
+109;4;2014;Aug;25;19:29;PM;WK;Clear;1;None;2;2;6;6;5;4;0;0;0;0;1;0;0;0;0;0;0;0;Bait;Boat;Casting;NP
+110;5;2014;Aug;25;20:55;PM;WK;Clear;0;None;1;1;5;5;5;0;0;0;0;0;5;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+111;1;2014;Aug;29;14:15;AM;WKND;Overcast;1;None;1;2;1.5;3;1;0;0;0;0;0;1;0;0;0;0;0;0;0;Flies;Boat;Trolling;RB
+112;1;2014;Sep;12;14:49;PM;WKND;Clear;3;None;3;3;6;6;2;0;2;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Casting;NP
+113;2;2014;Sep;12;16:03;PM;WKND;Clear;2;None;2;2;12;12;6;0;2;0;0;0;4;1;0;1;0;0;0;0;Bait;Boat;Trolling;NP
+114;3;2014;Sep;12;18:21;PM;WKND;Clear;2;None;1;1;3;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;CT
+115;4;2014;Sep;12;19:24;PM;WKND;Clear;0;None;2;2;4;4;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;CT
+116;1;2014;Sep;16;14:10;AM;WK;Clear;4;None;2;2;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+117;2;2014;Sep;16;14:36;AM;WK;Clear;3;None;1;1;5;5;2;0;2;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;CT
+118;3;2014;Sep;16;15:00;AM;WK;Clear;0;None;2;2;12;12;7;7;0;0;0;0;0;7;7;0;0;0;0;0;Bait;Boat;Trolling;KO
+119;1;2014;Sep;20;15:58;PM;WKND;Clear;1;None;2;3;12;18;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+120;2;2014;Sep;20;18:24;PM;WKND;Clear;0;None;2;2;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
+121;3;2014;Sep;20;19:17;PM;WKND;Clear;0;None;4;2;6;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Bait;Boat;Trolling;CT
+122;1;2014;Sep;28;12:27;AM;WKND;Clear;3;None;2;2;8;8;1;0;0;0;1;0;0;1;0;0;0;1;0;0;Bait;Boat;Trolling;NP
+123;2;2014;Sep;28;13:35;AM;WKND;Clear;3;None;2;2;12;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Lures;Boat;Trolling;NP
