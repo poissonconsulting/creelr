@@ -18,37 +18,8 @@ nday_type_month <- function (month, year = 2000) {
   c(Week = sum(x == "Week"), Weekend = sum(x == "Weekend"))
 }
 
-#' Title
-#'
-#' @param data A data.frame xx
-#' @param am A flag indicating xx
-#'
-#' @return A data.frame with xx
-#' @export
-#'
-#' @examples
-#' data(toa_dummy)
-#' trad_one_access(toa_dummy)
-trad_one_access <- function (data, am = 0.5, holidays = NULL, 
-                             working = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")) {
-  data$Date %<>% as.Date()
-  data$DayType <- day_type(data$Date, working)
-  data$Period %<>% factor(levels = c("AM", "PM"))
-  data$Year <- lubridate::year(data$Date)
-  data$Month <- lubridate::month(data$Date)
+trad_one_access_month <- function (data) {
   
-  if (is.date(holidays) == TRUE) {
-    k <- length(holidays)
-    for (i in 1:k) {
-        data$DayType[data$Date == holidays[i]] <- "Weekend"
-    }
-  }
-  
-  data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
-  data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
-                           "daily_cat" = "Catch / Probability")
-  
-
   totaln <- nday_type_month(lubridate::month(data$Date[1]), 
                             lubridate::year(data$Date[1]))
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
@@ -88,9 +59,41 @@ trad_one_access <- function (data, am = 0.5, holidays = NULL,
   
   result <- data.frame(c("Effort", "Catch"),overall_est, overall_se, row.names = NULL)
   names(result) <- c("Parameter", "Estimate", "SE")
-
+  
   result
+}
 
+#' Title
+#'
+#' @param data A data.frame xx
+#' @param am A flag indicating xx
+#'
+#' @return A data.frame with xx
+#' @export
+#'
+#' @examples
+#' data(toa_dummy)
+#' trad_one_access(toa_dummy)
+trad_one_access <- function (data, am = 0.5, holidays = NULL, 
+                             working = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")) {
+  data$Date %<>% as.Date()
+  data$DayType <- day_type(data$Date, working)
+  data$Period %<>% factor(levels = c("AM", "PM"))
+  data$Year <- lubridate::year(data$Date)
+  data$Month <- lubridate::month(data$Date)
+  
+  if (is.date(holidays) == TRUE) {
+    k <- length(holidays)
+    for (i in 1:k) {
+      data$DayType[data$Date == holidays[i]] <- "Weekend"
+    }
+  }
+  
+  data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
+  data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
+                           "daily_cat" = "Catch / Probability")
+  
+  plyr::ddply(data, c("Year", "Month"), trad_one_access_month)
 }
 
 

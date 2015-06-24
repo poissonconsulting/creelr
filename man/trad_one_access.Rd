@@ -4,7 +4,8 @@
 \alias{trad_one_access}
 \title{Title}
 \usage{
-trad_one_access(data, am = 0.5)
+trad_one_access(data, am = 0.5, holidays = NULL, working = c("Monday",
+  "Tuesday", "Wednesday", "Thursday", "Friday"))
 }
 \arguments{
 \item{data}{A data.frame xx}
