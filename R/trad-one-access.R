@@ -1,8 +1,9 @@
-day_type <- function (x) {
+day_type <- function (x, working = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")) {
   assert_that(is.date(x))
   x %<>% lubridate::wday(label = TRUE, abbr = FALSE)
-  levels(x) <- list(Week = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),
-                    Weekend = c("Saturday", "Sunday"))
+  allweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+  levels(x) <- list(Week = working,
+                    Weekend = setdiff(allweek, working))
   x
 }
 
@@ -28,15 +29,26 @@ nday_type_month <- function (month, year = 2000) {
 #' @examples
 #' data(toa_dummy)
 #' trad_one_access(toa_dummy)
-trad_one_access <- function (data, am = 0.5) {
+trad_one_access <- function (data, am = 0.5, holidays = NULL, 
+                             working = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")) {
   data$Date %<>% as.Date()
-  data$DayType <- day_type(data$Date)
+  data$DayType <- day_type(data$Date, working)
   data$Period %<>% factor(levels = c("AM", "PM"))
+  data$Year <- lubridate::year(data$Date)
+  data$Month <- lubridate::month(data$Date)
+  
+  if (is.date(holidays) == TRUE) {
+    k <- length(holidays)
+    for (i in 1:k) {
+        data$DayType[data$Date == holidays[i]] <- "Weekend"
+    }
+  }
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
                            "daily_cat" = "Catch / Probability")
   
+
   totaln <- nday_type_month(lubridate::month(data$Date[1]), 
                             lubridate::year(data$Date[1]))
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
@@ -74,13 +86,11 @@ trad_one_access <- function (data, am = 0.5) {
   }
   overall_se <- sqrt(overall_var)
   
-result <- data.frame(c("Effort", "Catch"),overall_est, overall_se, row.names = NULL)
-names(result) <- c("Parameter", "Estimate", "SE")
-attr(result, "daily_means") <- mean_est
-attr(result, "daily_var") <- var_est
-attr(result, "totals") <- total_est
-attr(result, "totals_se") <- se_total
+  result <- data.frame(c("Effort", "Catch"),overall_est, overall_se, row.names = NULL)
+  names(result) <- c("Parameter", "Estimate", "SE")
 
-result
+  result
 
 }
+
+
