@@ -6,7 +6,7 @@
 \alias{creelr-package}
 \title{Title}
 \description{
-Title
+xx some info about the package
 }
 \examples{
 \dontrun{
