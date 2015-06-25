@@ -1,5 +1,3 @@
-
-
 #' Plot Creel Estimates
 #'
 #' @param data A data.frame with the columns Month, Parameter, Estimate and SE.
