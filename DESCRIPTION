@@ -3,7 +3,7 @@ Type: Package
 Title: xx
 Version: 0.0.0.9001
 Date: 2015-06-15
-Authors@R: as.person(c( "xx [aut]", 
+Authors@R: as.person(c( "Mauricio Campos <moecampos@gmail.com> [aut]", 
     "Joe Thorley <joe@poissonconsulting.ca> [aut, cre]"))
 Description: xx xx.
 License: MIT + file LICENSE
