@@ -1,7 +1,6 @@
 library(devtools)
 library(magrittr)
 
-
 toa_example <- read.csv("data-raw/toa_example.csv", stringsAsFactors = FALSE, sep = ";")
 
 toa_example$Month %<>% match(month.abb)

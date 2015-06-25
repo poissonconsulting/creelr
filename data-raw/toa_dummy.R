@@ -1,4 +1,5 @@
 library(devtools)
+library(magrittr)
 
 toa_dummy <- read.csv("data-raw/toa_dummy.csv", stringsAsFactors = FALSE, sep = ";")
 
