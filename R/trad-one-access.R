@@ -63,6 +63,7 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
   result
 }
 
+
 #' Title
 #'
 #' @param data A data.frame xx
@@ -96,28 +97,3 @@ trad_one_access <- function (data, am = 0.5, holidays = NULL,
   
   plyr::ddply(data, c("Year", "Month"), .fun = trad_one_access_month, weekend = weekend, holidays = holidays, alpha = alpha)
 }
-
-
-sum_creel_estimates <- function (data, by = "Year") {
-  assert_that(is.data.frame(data))
-  assert_that(is.string(by))
-  check_rows(data)
-  check_columns(data, c("Parameter", "Estimate", "SD", "Lower", "Upper", "Working Days", 
-                        "Holidays", "Coverage Working Days", "Coverage Holidays"))
-  check_class_columns(data, list(Month = "numeric", 
-                                 Parameter = c("factor", "character"),
-                                 Estimate = "numeric",
-                                 SD = "numeric", 
-                                 Lower = "numeric",
-                                 Upper = "numeric",
-                                 'Working Days' = "integer",
-                                 Holidays = "integer",
-                                 'Coverage Working Days' = "integer",
-                                 'Coverage Holidays' = "integer"))
-  n <- data$'Coverage Working Days' + data$'Coverage Holidays'
-  N <- data$'Working Days' + data$Holidays
-  W <- n/N
-  sum_est <- sum(data$Estimate * W)
-  
-  
-} 
