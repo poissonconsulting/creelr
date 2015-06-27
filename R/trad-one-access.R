@@ -28,8 +28,11 @@ nday_type_month <- function (month, year = 2000,
 
 trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
                                    holidays = NULL, alpha = 0.05 ) {
-  samplen <- c(Week = sum(data$DayType[data$Month == lubridate::month(data$Date[1])] == "Week"), 
-                Weekend = sum(data$DayType[data$Month == lubridate::month(data$Date[1])] == "Weekend"))
+  sample_days <- unique(dplyr::select(data, c(Date, DayType, Month)))
+  samplen <- c(Week = sum(sample_days$DayType[sample_days$Month == 
+                                                lubridate::month(sample_days$Date[1])] == "Week"), 
+                Weekend = sum(sample_days$DayType[sample_days$Month == 
+                                                    lubridate::month(sample_days$Date[1])] == "Weekend"))
   totaln <- nday_type_month(lubridate::month(data$Date[1]), 
                             lubridate::year(data$Date[1]),
                             weekend, holidays)
@@ -44,18 +47,18 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
   mean_est <- tapply(data2$daily, list(variab, dt), mean)
   var_est <- tapply(data2$daily, list(variab, dt), function(x) var(x)/length(x))
   var_total <- total_n^2 * var_est
-  se_total <- sqrt(var_total)
+  sd_total <- sqrt(var_total)
   total_est <- total_n * mean_est
   overall_est <- apply(total_est, 1, sum)
   overall_var <- apply(var_total, 1, sum)
-  overall_se <- sqrt(overall_var)
-  lower <- overall_est - overall_se * qt(1 - alpha, samplen - 1)
-  upper <- overall_est + overall_se * qt(1 - alpha, samplen - 1)
-  result <- data.frame(c("Effort", "Catch"),overall_est, overall_se, 
+  overall_sd <- sqrt(overall_var)
+  lower <- overall_est - overall_sd * qnorm(1 - alpha)
+  upper <- overall_est + overall_sd * qnorm(1 - alpha) 
+  result <- data.frame(c("Effort", "Catch"),overall_est, overall_sd, lower, upper,  
                        total_n[ ,1], total_n[ ,2], sample_n[ ,1], sample_n[ ,2], 
                        row.names = NULL)
-  names(result) <- c("Parameter", "Estimate", "SE", "Working Days", "Holidays", 
-                     "Coverage Working Days", "Coverage Holidays")
+  names(result) <- c("Parameter", "Estimate", "SD", "Lower", "Upper", "Working Days", 
+                     "Holidays", "Coverage Working Days", "Coverage Holidays")
   
   result
 }
@@ -91,7 +94,7 @@ trad_one_access <- function (data, am = 0.5, holidays = NULL,
   data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
                            "daily_cat" = "Catch / Probability")
   
-  plyr::ddply(data, c("Year", "Month"), trad_one_access_month)
+  plyr::ddply(data, c("Year", "Month"), .fun = trad_one_access_month, weekend = weekend, holidays = holidays, alpha = alpha)
 }
 
 
@@ -99,10 +102,22 @@ sum_creel_estimates <- function (data, by = "Year") {
   assert_that(is.data.frame(data))
   assert_that(is.string(by))
   check_rows(data)
-  check_columns(data, c("Year", "Month", "Parameter", "Estimate", "SE"))
+  check_columns(data, c("Parameter", "Estimate", "SD", "Lower", "Upper", "Working Days", 
+                        "Holidays", "Coverage Working Days", "Coverage Holidays"))
   check_class_columns(data, list(Month = "numeric", 
                                  Parameter = c("factor", "character"),
                                  Estimate = "numeric",
-                                 SE = "numeric"))
-  #xx
+                                 SD = "numeric", 
+                                 Lower = "numeric",
+                                 Upper = "numeric",
+                                 'Working Days' = "integer",
+                                 Holidays = "integer",
+                                 'Coverage Working Days' = "integer",
+                                 'Coverage Holidays' = "integer"))
+  n <- data$'Coverage Working Days' + data$'Coverage Holidays'
+  N <- data$'Working Days' + data$Holidays
+  W <- n/N
+  sum_est <- sum(data$Estimate * W)
+  
+  
 } 
