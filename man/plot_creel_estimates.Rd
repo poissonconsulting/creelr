@@ -4,12 +4,14 @@
 \alias{plot_creel_estimates}
 \title{Plot Creel Estimates}
 \usage{
-plot_creel_estimates(data, parameter = "Catch")
+plot_creel_estimates(data, parameter = "Catch", x = "Month")
 }
 \arguments{
 \item{data}{A data.frame with the columns Month, Parameter, Estimate and SE.}
 
 \item{parameter}{A string of the parameter to filter by.}
+
+\item{x}{A string of the variable to plot on the x-axis.}
 }
 \value{
 A \code{\link{ggplot}} object.

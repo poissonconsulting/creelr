@@ -8,5 +8,7 @@ trad_one_access(toa_example)
 
 toa_results <- trad_one_access(toa_example, weekend = c("Friday", "Saturday", "Sunday"))
 
+plot_creel_estimates(toa_results)
+
 sum_creel_estimates(toa_results, alpha = 0.10)
 sum_creel_estimates(toa_results, by = "Month")
