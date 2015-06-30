@@ -7,3 +7,4 @@ test_that("punctuate_strings", {
   expect_identical(punctuate_strings(c("x","y","z","a")), "x, y, z or a")
   expect_identical(punctuate_strings(c("x","y","z","a"), "and"), "x, y, z and a")
 })
+
