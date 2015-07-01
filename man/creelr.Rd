@@ -4,9 +4,9 @@
 \name{creelr}
 \alias{creelr}
 \alias{creelr-package}
-\title{Title}
+\title{Analysis of Angler Creel Data}
 \description{
-xx some info about the package
+Implements the Traditional Access Design for One Access Site.
 }
 \examples{
 \dontrun{

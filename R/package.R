@@ -1,6 +1,6 @@
-#' Title 
+#' Analysis of Angler Creel Data 
 #' 
-#' xx some info about the package
+#' Implements the Traditional Access Design for One Access Site.
 #' 
 #' @docType package
 #' @name creelr
