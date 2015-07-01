@@ -34,7 +34,7 @@ check_period <- function(data) {
 
 trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
                                    holidays = NULL, alpha = 0.05 ) {
-  sample_days <- unique(dplyr::select(data, c(Date, DayType, Month, Period, Probability)))
+  sample_days <- unique(dplyr::select_(data, ~Date, ~DayType, ~Month, ~Period, ~Probability))
   wk <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Week"
   wknd <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Weekend"
   w_wk <- wk*sample_days$Probability[sample_days$Month == lubridate::month(sample_days$Date[1])]

@@ -1,6 +1,6 @@
 creel_sum <- function(data, alpha = 0.05){
-  data$var <- data$SD ** 2
-  data %<>% dplyr::select(c(Year, Month, Parameter, Estimate, var))
+  data$var <- data$SD * 2
+  data %<>% dplyr::select_(~Year, ~Month, ~Parameter, ~Estimate, ~var)
   sum_est <- sum(data$Estimate)
   var_est <- sum(data$var)
   sd_est <- sqrt(var_est)
