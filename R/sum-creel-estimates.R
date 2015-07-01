@@ -7,7 +7,7 @@ creel_sum <- function(data, alpha = 0.05){
   lower <- sum_est - sd_est * qnorm(1 - alpha)
   upper <- sum_est + sd_est * qnorm(1 - alpha)  
   result <- data.frame(sum_est, sd_est, lower, upper, row.names = NULL)
-  names(result) <- c("Sum Estimate", "SD", "Lower", "Upper")  
+  names(result) <- c("Sum_Estimate", "SD", "Lower", "Upper")  
   result
 }
 
@@ -25,6 +25,7 @@ creel_sum <- function(data, alpha = 0.05){
 #' toa_results <- trad_one_access(toa_dummy)
 #' sum_creel_estimates(toa_results)
 sum_creel_estimates <- function (data, by = "Year", alpha = 0.05) {
+  if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
   assert_that(is.data.frame(data))
   assert_that(is.string(by))
   check_rows(data)

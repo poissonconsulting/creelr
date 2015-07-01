@@ -1,11 +1,23 @@
-#' xx Data
+#' Textbook Example Data
 #'
 #' @format A data.frame with 5 columns:
 #' \describe{
-#'   \item{Date}{xx}
-#'   \item{DayeType}{xx}
-#'   \item{Period}{xx}
-#'   \item{RodHours}{xx}
-#'   \item{Catch}{xx}
+#'   \item{Date}{Sample dates from February 2010}
+#'   \item{DayType}{Distinction between in-week days and weekend days}
+#'   \item{Period}{Time of day sampled}
+#'   \item{RodHours}{Hours of fishing effort}
+#'   \item{Catch}{Total number of fish kept and released}
 #' }
 "toa_dummy"
+
+#' Fishery Data
+#'
+#' @format A data.frame with 5 columns:
+#' \describe{
+#'   \item{Date}{Sample dates from February 2010}
+#'   \item{DayType}{Distinction between in-week days and weekend days}
+#'   \item{Period}{Time of day sampled}
+#'   \item{RodHours}{Hours of fishing effort}
+#'   \item{Catch}{Total number of fish, for every specie, kept and released}
+#' }
+"toa_example"

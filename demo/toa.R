@@ -11,7 +11,7 @@ trad_one_access(toa_example, holidays = as.Date("2014-05-29"),
                 weekend = c("Friday", "Saturday", "Sunday"))
 trad_one_access(toa_example)
 
-toa_results <- trad_one_access(toa_example, weekend = c("Friday", "Saturday", "Sunday"))
+toa_results <- trad_one_access(toa_example)
 
 plot_creel_estimates(toa_results)
 

@@ -8,12 +8,18 @@ trad_one_access(data, am = 0.5, holidays = NULL, weekend = c("Saturday",
   "Sunday"), alpha = 0.05)
 }
 \arguments{
-\item{data}{A data.frame xx}
+\item{data}{A data.frame containing Date, DayType, Period, RodHours and Catch}
 
-\item{am}{A flag indicating xx}
+\item{am}{A flag indicating the selection probility for the AM period}
+
+\item{holidays}{A Date vector containing holidays that can be treated as weekends}
+
+\item{weekend}{A string vector indicating the days to be considered weekend}
+
+\item{alpha}{The significance level desired for the confidence intervals}
 }
 \value{
-A data.frame with xx
+A data.frame with the total effort and catch estimates, confidence intervals and in-week and weekend days and coverage
 }
 \description{
 Title
