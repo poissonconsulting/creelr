@@ -19,3 +19,12 @@ test_that("nday_type_month",{
   names(dec) <- c("Week", "Weekend")
   expect_equal(ndays, dec)
 })
+
+test_that("sub_holiday", {
+  data(toa_example, envir = parent.frame())
+  holi <- as.Date("2014-05-29")
+  expect_error(sub_holiday(toa_example, holidays = "x"))
+  h1 <- sub_holiday(toa_example)
+  h2 <- sub_holiday(toa_example, holidays = holi)
+  expect_true(sum(h1 == "Weekend") < sum(h2 == "Weekend"))
+})

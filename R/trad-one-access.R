@@ -7,6 +7,18 @@ day_type <- function (x, weekend = c("Saturday", "Sunday")) {
   x
 }
 
+sub_holiday <- function(data, holidays = NULL) {
+  if (is.null(holidays) == FALSE) {
+    assert_that(is.date(holidays))
+    k <- length(holidays)
+    for (i in 1:k) {
+      data$DayType[data$Date == holidays[i]] <- "Weekend"
+    }
+  }
+  data$DayType
+}
+
+
 nday_type_month <- function (month, year = 2000, 
                              weekend = c("Saturday", "Sunday"),
                              holidays = NULL) {
@@ -17,12 +29,9 @@ nday_type_month <- function (month, year = 2000,
   last <- as.Date(first + months(1) - lubridate::days(1))
   x <- seq(first, last, by = "day")
   x2 <- day_type(x, weekend)
-  if (is.date(holidays) == TRUE) {
-    k <- length(holidays)
-    for (i in 1:k) {
-      x2[x == holidays[i]] <- "Weekend"
-    }
-  }
+  y <- data.frame(x, x2)
+  names(y) <- c("Date", "DayType")
+  x2 <- sub_holiday(y, holidays)
   c(Week = sum(x2 == "Week"), Weekend = sum(x2 == "Weekend"))
 }
 
@@ -105,6 +114,11 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
 trad_one_access <- function (data, am = 0.5, holidays = NULL, 
                              weekend = c("Saturday", "Sunday"),
                              alpha = 0.05, weighted = FALSE) {
+  assert_that(is.numeric(am))
+  assert_that(is.data.frame(data))
+  assert_that(is.numeric(alpha))
+  
+  assert_that(is.logical(weighted))
   if (am > 1 || am < 0) stop("am must be a probability")
   if (check_period(data) == F) stop("Only one time period allowed per day")
   if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
@@ -115,12 +129,7 @@ trad_one_access <- function (data, am = 0.5, holidays = NULL,
   data$Year <- lubridate::year(data$Date)
   data$Month <- lubridate::month(data$Date)
   
-  if (is.date(holidays) == TRUE) {
-    k <- length(holidays)
-    for (i in 1:k) {
-      data$DayType[data$Date == holidays[i]] <- "Weekend"
-    }
-  }
+  data$DayType <- sub_holiday(data, holidays)
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
