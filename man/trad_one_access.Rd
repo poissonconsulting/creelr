@@ -2,10 +2,10 @@
 % Please edit documentation in R/trad-one-access.R
 \name{trad_one_access}
 \alias{trad_one_access}
-\title{Title}
+\title{Traditional One Access Estimates}
 \usage{
 trad_one_access(data, am = 0.5, holidays = NULL, weekend = c("Saturday",
-  "Sunday"), alpha = 0.05)
+  "Sunday"), alpha = 0.05, weighted = FALSE)
 }
 \arguments{
 \item{data}{A data.frame containing Date, DayType, Period, RodHours and Catch}
@@ -17,12 +17,14 @@ trad_one_access(data, am = 0.5, holidays = NULL, weekend = c("Saturday",
 \item{weekend}{A string vector indicating the days to be considered weekend}
 
 \item{alpha}{The significance level desired for the confidence intervals}
+
+\item{weighted}{A logical value that indicated whether the sampling coverage should weight by Period or not}
 }
 \value{
-A data.frame with the total effort and catch estimates, confidence intervals and in-week and weekend days and coverage
+A data.frame with the total effort and catch estimates, confidence intervals, in-week and weekend days and sampling coverage
 }
 \description{
-Title
+Traditional One Access Estimates
 }
 \examples{
 data(toa_dummy)
