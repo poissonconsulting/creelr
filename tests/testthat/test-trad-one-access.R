@@ -16,6 +16,7 @@ test_that("trad_one_access", {
   expect_equal(toa$Lower < toa$Upper, c(TRUE, TRUE))
   expect_equal(toa$WK, rep(20, 2))
   expect_equal(toa$WKND, rep(8, 2))
+  expect_equal(trad_one_access(toa_dummy, am = 0.6)$Coverage_WKND, rep(3.8, 2))
   expect_error(trad_one_access(toa_dummy, am = 2))
   expect_error(trad_one_access(toa_dummy, am = -2))
 })

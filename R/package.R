@@ -6,7 +6,7 @@
 #' @name creelr
 #' @import assertthat
 #' @importFrom magrittr "%>%" "%<>%"
-#' @references xx
+#' @references Pollock, Kenneth Hugh, Cynthia M. Jones, and T. L. Brown. Angler Survey Methods and Their Applications in Fisheries Management. American Fisheries Society Special Publication 25. Bethesda, Md: American Fisheries Society, 1994.
 #' @examples
 #' \dontrun{
 #'  demo(toa)
