@@ -32,3 +32,13 @@ test_that("check_period", {
   expect_error(trad_one_access(bad))
 })
 
+test_that("check_weighted", {
+  data(toa_dummy, envir = parent.frame())
+  
+  expect_equal(trad_one_access(toa_dummy)$Coverage_WK, c(8,8))
+  expect_equal(trad_one_access(toa_dummy)$Coverage_WKND, c(8,8))
+  expect_equal(trad_one_access(toa_dummy, weighted = TRUE)$Coverage_WK, c(4,4))
+  expect_equal(trad_one_access(toa_dummy, weighted = TRUE)$Coverage_WKND, c(4,4))
+  expect_equal(trad_one_access(toa_dummy, am = 0.6, weighted = TRUE)$Coverage_WK, c(4, 4))
+  expect_equal(trad_one_access(toa_dummy, am = 0.6, weighted = TRUE)$Coverage_WKND, c(4, 4))
+})
