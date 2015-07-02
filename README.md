@@ -1,3 +1,5 @@
+https://travis-ci.org/poissonconsulting/creelr.svg?branch=master
+
 # creelr
 
 A Prototype R package to Analyse Creel Survey Data
