@@ -34,9 +34,7 @@ nday_type_month <- function (month, year, weekend, holidays) {
 }
 
 check_period <- function(data) {
-  red <- aggregate(data$Catch, by = list(data$Date, data$Period), sum )
-  blue <- unique(data$Date)
-  length(red$Group.1) == length(blue)
+  !anyDuplicated(data$Date)
 }
 
 trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),

@@ -23,11 +23,11 @@ test_that("trad_one_access", {
 })
 
 test_that("check_period", {
-  data(toa_example, envir = parent.frame())
+  data(toa_dummy, envir = parent.frame())
   
-  expect_true(check_period(toa_example))
-  bad <- toa_example
-  bad$Period[2] <- "PM"
+  expect_true(check_period(toa_dummy))
+  bad <- toa_dummy
+  bad$Date[2] <- bad$Date[1]
   expect_false(check_period(bad))
   expect_error(trad_one_access(bad))
 })
