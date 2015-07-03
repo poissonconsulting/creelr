@@ -22,12 +22,12 @@ day_type <- function(x, weekend = c("Saturday", "Sunday"), holidays = NULL) {
   dtype
 }
 
-nday_type_month <- function (month, year, weekend, holidays) {
+nday_type_month <- function(month, year, weekend, holidays) {
   assert_that(is.count(month))
   assert_that(is.count(year))
   
   first <- as.Date(paste(year, month, 01, sep = "-"))
-  last <- as.Date(first + months(1) - lubridate::days(1))
+  last <- as.Date(first + months(1, abbreviate = FALSE) - lubridate::days(1))
   dates <- seq(first, last, by = "day")
   x2 <- day_type(dates, weekend = weekend, holidays = holidays)
   c(Week = sum(x2 == "Week"), Weekend = sum(x2 == "Weekend"))
@@ -37,8 +37,8 @@ check_period <- function(data) {
   !anyDuplicated(data$Date)
 }
 
-trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
-                                   holidays = NULL, alpha = 0.05, weighted = FALSE) {
+trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
+  
   sample_days <- unique(dplyr::select_(data, ~Date, ~DayType, ~Month, ~Period, ~Probability))
   wk <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Week"
   wknd <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Weekend"
@@ -67,8 +67,7 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
   
   mean_est <- tapply(data2$daily, list(variab, dt), mean)
   var_est <- tapply(data2$daily, list(variab, dt), function(x) var(x)/length(x))
-  var_total <- total_n^2 * var_est
-  sd_total <- sqrt(var_total)
+  var_total <- total_n ^ 2 * var_est
   total_est <- total_n * mean_est
   overall_est <- apply(total_est, 1, sum)
   overall_var <- apply(var_total, 1, sum)
@@ -126,7 +125,7 @@ trad_one_access <- function(data, am = 0.5,
                                  RodHours = c("numeric", "integer"), 
                                  Catch = c("numeric", "integer")))
   
-  if(!all(data$Period %in% c("AM", "PM")))
+  if (!all(data$Period %in% c("AM", "PM")))
     stop("the values in the data Period column must be 'AM' or 'PM'")
 
   data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
