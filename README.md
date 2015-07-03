@@ -6,10 +6,10 @@ A Prototype R package to Analyse Creel Survey Data
 
 ## Install
 
-To install the latest version of jaggernaut:
+To install the latest version of creelr:
 
-    # install.packages("devtools")
-    devtools::install_github("poissonconsulting/creelr")
+    install.packages("devtools")
+    devtools::install_github("poissonconsulting/creelr", dependencies = TRUE)
     library(creelr)
     
 ## Contact
