@@ -1,9 +1,8 @@
 #' Textbook Example Data
 #'
-#' @format A data.frame with 5 columns:
+#' @format A data.frame with 4 columns:
 #' \describe{
 #'   \item{Date}{Sample dates from February 2010}
-#'   \item{DayType}{Distinction between in-week days and weekend days}
 #'   \item{Period}{Time of day sampled}
 #'   \item{RodHours}{Hours of fishing effort}
 #'   \item{Catch}{Total number of fish kept and released}
@@ -12,10 +11,9 @@
 
 #' Fishery Data
 #'
-#' @format A data.frame with 5 columns:
+#' @format A data.frame with 4 columns:
 #' \describe{
 #'   \item{Date}{Sample dates from February 2010}
-#'   \item{DayType}{Distinction between in-week days and weekend days}
 #'   \item{Period}{Time of day sampled}
 #'   \item{RodHours}{Hours of fishing effort}
 #'   \item{Catch}{Total number of fish, for every specie, kept and released}

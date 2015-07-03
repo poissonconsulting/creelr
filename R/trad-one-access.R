@@ -1,37 +1,35 @@
-day_type <- function (x, weekend = c("Saturday", "Sunday")) {
+#' Get Day Type
+#'
+#' @param x A Date vector to get the day types for.
+#' @inheritParams trad_one_access
+#' @return A factor of the day types ('Week' or 'Weekend').
+#' @export
+#' @examples
+#' day_type(seq(as.Date("2000-12-01"), as.Date("2000-12-31"), by = "day"))
+#' day_type(seq(as.Date("2000-12-01"), as.Date("2000-12-31"), by = "day"), 
+#'   holidays = as.Date("2000-12-25"))
+day_type <- function(x, weekend = c("Saturday", "Sunday"), holidays = NULL) {
   assert_that(is.date(x))
-  x %<>% lubridate::wday(label = TRUE, abbr = FALSE)
+  assert_that(is.character(weekend) && noNA(weekend))
+  assert_that(is.null(holidays) || is.date(holidays))
+  
+  dtype <- lubridate::wday(x, label = TRUE, abbr = FALSE)
   allweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-  levels(x) <- list(Week = setdiff(allweek, weekend),
+  levels(dtype) <- list(Week = setdiff(allweek, weekend),
                     Weekend = weekend)
-  x
+  
+  dtype[x %in% holidays] <- "Weekend"
+  dtype
 }
 
-sub_holiday <- function(data, holidays = NULL) {
-  if (is.null(holidays) == FALSE) {
-    assert_that(is.date(holidays))
-    k <- length(holidays)
-    for (i in 1:k) {
-      data$DayType[data$Date == holidays[i]] <- "Weekend"
-    }
-  }
-  data$DayType
-}
-
-
-nday_type_month <- function (month, year = 2000, 
-                             weekend = c("Saturday", "Sunday"),
-                             holidays = NULL) {
+nday_type_month <- function (month, year, weekend, holidays) {
   assert_that(is.count(month))
   assert_that(is.count(year))
   
   first <- as.Date(paste(year, month, 01, sep = "-"))
   last <- as.Date(first + months(1) - lubridate::days(1))
-  x <- seq(first, last, by = "day")
-  x2 <- day_type(x, weekend)
-  y <- data.frame(x, x2)
-  names(y) <- c("Date", "DayType")
-  x2 <- sub_holiday(y, holidays)
+  dates <- seq(first, last, by = "day")
+  x2 <- day_type(dates, weekend = weekend, holidays = holidays)
   c(Week = sum(x2 == "Week"), Weekend = sum(x2 == "Weekend"))
 }
 
@@ -132,21 +130,26 @@ trad_one_access <- function(data, am = 0.5,
   
   if(!all(data$Period %in% c("AM", "PM")))
     stop("the values in the data Period column must be 'AM' or 'PM'")
+
+  data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
+    dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "RodHours"))) %>%
+    dplyr::ungroup()
   
   if (!check_period(data)) stop("Only one time period allowed per day")
   
-  data$DayType <- day_type(data$Date, weekend)
+  data$DayType <- day_type(data$Date, weekend, holidays)
+  
   data$Period %<>% factor(levels = c("AM", "PM"))
   data$Year <- lubridate::year(data$Date)
   data$Month <- lubridate::month(data$Date)
-  
-  data$DayType <- sub_holiday(data, holidays)
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
                            "daily_cat" = "Catch / Probability")
   
+  data %<>% dplyr::select_(~Date, ~Year, ~Month, ~DayType, ~Period, ~Probability, 
+                           ~daily_eff, ~daily_cat)
+  
   plyr::ddply(data, c("Year", "Month"), .fun = trad_one_access_month, weekend = weekend, 
               holidays = holidays, alpha = alpha, weighted = weighted)
 }
-
