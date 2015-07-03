@@ -98,12 +98,12 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
 
 #' Traditional One Access Estimates
 #'
-#' @param data A data.frame containing Date, DayType, Period, RodHours and Catch
-#' @param am A flag indicating the selection probility for the AM period
-#' @param holidays A Date vector containing holidays that can be treated as weekends
-#' @param weekend A string vector indicating the days to be considered weekend
-#' @param alpha The significance level desired for the confidence intervals
-#' @param weighted A logical value that indicated whether the sampling coverage should weight by Period or not
+#' @param data A data.frame containing Date, Period, RodHours and Catch.
+#' @param am A number indicating the weighting for the AM period.
+#' @param weekend A string indicating the days to be considered weekend.
+#' @param holidays A Date containing holidays that can be treated as weekends.
+#' @param alpha A number indicating the significance level desired for the confidence intervals.
+#' @param weighted A flag that indicates whether the sampling coverage should weight by Period.
 #'
 #' @return A data.frame with the total effort and catch estimates, confidence intervals, in-week and weekend days and sampling coverage
 #' @export
@@ -111,19 +111,30 @@ trad_one_access_month <- function (data, weekend = c("Saturday", "Sunday"),
 #' @examples
 #' data(toa_dummy)
 #' trad_one_access(toa_dummy)
-trad_one_access <- function (data, am = 0.5, holidays = NULL, 
+trad_one_access <- function(data, am = 0.5, 
                              weekend = c("Saturday", "Sunday"),
+                             holidays = NULL, 
                              alpha = 0.05, weighted = FALSE) {
-  assert_that(is.numeric(am))
   assert_that(is.data.frame(data))
-  assert_that(is.numeric(alpha))
-  
-  assert_that(is.logical(weighted))
+  assert_that(is.number(am) && noNA(am))
+  assert_that(is.character(weekend) && noNA(weekend))
+  assert_that(is.null(holidays) || is.date(holidays))
+  assert_that(is.number(alpha) && noNA(alpha))
+  assert_that(is.flag(weighted) && noNA(weighted))
+ 
   if (am > 1 || am < 0) stop("am must be a probability")
-  if (check_period(data) == F) stop("Only one time period allowed per day")
   if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
   
-  data$Date %<>% as.Date()
+  check_columns(data, c("Date", "Period", "RodHours", "Catch"))
+  check_class_columns(data, list(Date = "Date", Period = c("character", "factor"), 
+                                 RodHours = c("numeric", "integer"), 
+                                 Catch = c("numeric", "integer")))
+  
+  if(!all(data$Period %in% c("AM", "PM")))
+    stop("the values in the data Period column must be 'AM' or 'PM'")
+  
+  if (!check_period(data)) stop("Only one time period allowed per day")
+  
   data$DayType <- day_type(data$Date, weekend)
   data$Period %<>% factor(levels = c("AM", "PM"))
   data$Year <- lubridate::year(data$Date)

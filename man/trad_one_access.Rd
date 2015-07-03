@@ -4,21 +4,21 @@
 \alias{trad_one_access}
 \title{Traditional One Access Estimates}
 \usage{
-trad_one_access(data, am = 0.5, holidays = NULL, weekend = c("Saturday",
-  "Sunday"), alpha = 0.05, weighted = FALSE)
+trad_one_access(data, am = 0.5, weekend = c("Saturday", "Sunday"),
+  holidays = NULL, alpha = 0.05, weighted = FALSE)
 }
 \arguments{
-\item{data}{A data.frame containing Date, DayType, Period, RodHours and Catch}
+\item{data}{A data.frame containing Date, Period, RodHours and Catch.}
 
-\item{am}{A flag indicating the selection probility for the AM period}
+\item{am}{A number indicating the weighting for the AM period.}
 
-\item{holidays}{A Date vector containing holidays that can be treated as weekends}
+\item{weekend}{A string indicating the days to be considered weekend.}
 
-\item{weekend}{A string vector indicating the days to be considered weekend}
+\item{holidays}{A Date containing holidays that can be treated as weekends.}
 
-\item{alpha}{The significance level desired for the confidence intervals}
+\item{alpha}{A number indicating the significance level desired for the confidence intervals.}
 
-\item{weighted}{A logical value that indicated whether the sampling coverage should weight by Period or not}
+\item{weighted}{A flag that indicates whether the sampling coverage should weight by Period.}
 }
 \value{
 A data.frame with the total effort and catch estimates, confidence intervals, in-week and weekend days and sampling coverage
