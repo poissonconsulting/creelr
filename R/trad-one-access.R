@@ -33,10 +33,6 @@ nday_type_month <- function(month, year, weekend, holidays) {
   c(Week = sum(x2 == "Week"), Weekend = sum(x2 == "Weekend"))
 }
 
-check_period <- function(data) {
-  !anyDuplicated(data$Date)
-}
-
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
   sample_days <- unique(dplyr::select_(data, ~Date, ~DayType, ~Month, ~Period, ~Probability))
@@ -132,7 +128,7 @@ trad_one_access <- function(data, am = 0.5,
     dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "RodHours"))) %>%
     dplyr::ungroup()
   
-  if (!check_period(data)) stop("Only one time period allowed per day")
+  if (anyDuplicated(data$Date)) stop("Only one time period allowed per day")
   
   data$DayType <- day_type(data$Date, weekend, holidays)
   
