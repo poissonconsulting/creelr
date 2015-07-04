@@ -48,12 +48,7 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   sample_n <- matrix(rep(samplen, 2), nrow = 2, byrow = T)
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
   
-  daily_data <- aggregate(data$daily_cat, by = list(data$Date, data$Year, 
-                                                    data$Month, data$DayType, data$Probability), sum)
-  agg_eff <- aggregate(data$daily_eff, by = list(data$Date, data$Year, 
-                                                 data$Month, data$DayType, data$Probability), sum)
-  daily_data$daily_eff <- agg_eff$x
-  names(daily_data) <- c("Date", "Year", "Month", "DayType", "Probability", "daily_cat", "daily_eff")
+  daily_data <- data
   
   variab <- as.factor(c(rep(1, nrow(daily_data)), rep(2, nrow(daily_data))))
   dt <- as.factor(rep(as.numeric(daily_data$DayType),2))
