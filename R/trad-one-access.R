@@ -36,15 +36,14 @@ nday_type_month <- function(month, year, weekend, holidays) {
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
   sample_days <- unique(dplyr::select_(data, ~Date, ~DayType, ~Month, ~Period, ~Probability))
-  wk <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Week"
-  wknd <- sample_days$DayType[sample_days$Month == lubridate::month(sample_days$Date[1])] == "Weekend"
-  w_wk <- wk*sample_days$Probability[sample_days$Month == lubridate::month(sample_days$Date[1])]
-  w_wknd <- wknd*sample_days$Probability[sample_days$Month == lubridate::month(sample_days$Date[1])]
+  
+  wk <- sample_days$DayType == "Week"
+  wknd <- sample_days$DayType == "Weekend"
+  w_wk <- wk * sample_days$Probability
+  w_wknd <- wknd * sample_days$Probability
   samplen <- c(Week = sum(wk), Weekend = sum(wknd))
   wsamplen <- c(Week = sum(w_wk), Weekend = sum(w_wknd))
-  totaln <- nday_type_month(lubridate::month(data$Date[1]), 
-                            lubridate::year(data$Date[1]),
-                            weekend, holidays)
+  totaln <- nday_type_month(data$Month[1], data$Year[1], weekend, holidays)
   wsample_n <- matrix(rep(wsamplen, 2), nrow = 2, byrow = T)
   sample_n <- matrix(rep(samplen, 2), nrow = 2, byrow = T)
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
