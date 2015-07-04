@@ -16,7 +16,7 @@ day_type <- function(x, weekend = c("Saturday", "Sunday"), holidays = NULL) {
   dtype <- lubridate::wday(x, label = TRUE, abbr = FALSE)
   allweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
   levels(dtype) <- list(Week = setdiff(allweek, weekend),
-                    Weekend = weekend)
+                        Weekend = weekend)
   
   dtype[x %in% holidays] <- "Weekend"
   dtype
@@ -35,45 +35,33 @@ nday_type_month <- function(month, year, weekend, holidays) {
 
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
-  wk <- data$DayType == "Week"
-  wknd <- data$DayType == "Weekend"
-  w_wk <- wk * data$Probability
-  w_wknd <- wknd * data$Probability
-  samplen <- c(Week = sum(wk), Weekend = sum(wknd))
-  wsamplen <- c(Week = sum(w_wk), Weekend = sum(w_wknd))
-  totaln <- nday_type_month(data$Month[1], data$Year[1], weekend, holidays)
-  wsample_n <- matrix(rep(wsamplen, 2), nrow = 2, byrow = T)
-  sample_n <- matrix(rep(samplen, 2), nrow = 2, byrow = T)
-  total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
+  data %<>% dplyr::mutate_(.dots = setNames(list(~Value / Probability), c("Value")))
   
-  variab <- as.factor(c(rep(1, nrow(data)), rep(2, nrow(data))))
-  dt <- as.factor(rep(as.numeric(data$DayType),2))
-  daily <- c(data$daily_eff, data$daily_cat)
-  data2 <- data.frame(variab, dt, daily)
+  estimate <- dplyr::group_by_(data, .dots = list(~DayType)) %>% 
+    dplyr::summarise_(.dots = setNames(list(~mean(Value), ~n(), ~var(Value), ~mean(Probability)), 
+                                       c("Mean", "Days", "Variance", "Probability")))
   
-  mean_est <- tapply(data2$daily, list(variab, dt), mean)
-  var_est <- tapply(data2$daily, list(variab, dt), function(x) var(x)/length(x))
-  var_total <- total_n ^ 2 * var_est
-  total_est <- total_n * mean_est
-  overall_est <- apply(total_est, 1, sum)
-  overall_var <- apply(var_total, 1, sum)
-  overall_sd <- sqrt(overall_var)
-  lower <- overall_est - overall_sd * qnorm(1 - alpha)
-  upper <- overall_est + overall_sd * qnorm(1 - alpha) 
-  if (weighted == TRUE) {
-    result <- data.frame(c("Effort", "Catch"),overall_est, overall_sd, lower, upper,  
-                         total_n[ ,1], total_n[ ,2], wsample_n[ ,1], wsample_n[ ,2], 
-                         row.names = NULL)
-  } else {
-    result <- data.frame(c("Effort", "Catch"),overall_est, overall_sd, lower, upper,  
-                         total_n[ ,1], total_n[ ,2], sample_n[ ,1], sample_n[ ,2], 
-                         row.names = NULL)
-  }
+  estimate$TotalDays <- nday_type_month(data$Month[1], data$Year[1], weekend, holidays)
   
-  names(result) <- c("Parameter", "Estimate", "SD", "Lower", "Upper", "WK", 
-                     "WKND", "Coverage_WK", "Coverage_WKND")
+  estimate %<>% dplyr::mutate_(.dots = setNames(list(
+    ~Mean * TotalDays, ~sqrt(Variance / Days * TotalDays ^ 2), ~Days * Probability), 
+    c("Estimate", "SD", "WeightedDays")))
   
-  result
+  total <- dplyr::ungroup(estimate) %>% 
+    dplyr::summarise_(.dots = setNames(list(~sum(Estimate), ~sqrt(sum(SD ^ 2))), c("Estimate", "SD"))) %>%
+    dplyr::mutate_(.dots = setNames(list(~Estimate - SD * qnorm(1 - alpha), ~Estimate + SD * qnorm(1 - alpha)), c("Lower", "Upper")))
+  
+  total$WK <- estimate$TotalDays[estimate$DayType == "Week"]
+  total$WKND <- estimate$TotalDays[estimate$DayType == "Weekend"]
+
+  if (weighted)
+   estimate$Days <- estimate$WeightedDays
+
+  total$Coverage_WK <- estimate$Days[estimate$DayType == "Week"]
+  total$Coverage_WKND <- estimate$Days[estimate$DayType == "Weekend"] 
+  
+  dplyr::select_(total, .dots = list(~Estimate, ~SD, ~Lower, ~Upper, ~WK, 
+                              ~WKND, ~Coverage_WK, ~Coverage_WKND))
 }
 
 
@@ -93,16 +81,16 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
 #' data(toa_dummy)
 #' trad_one_access(toa_dummy)
 trad_one_access <- function(data, am = 0.5, 
-                             weekend = c("Saturday", "Sunday"),
-                             holidays = NULL, 
-                             alpha = 0.05, weighted = FALSE) {
+                            weekend = c("Saturday", "Sunday"),
+                            holidays = NULL, 
+                            alpha = 0.05, weighted = FALSE) {
   assert_that(is.data.frame(data))
   assert_that(is.number(am) && noNA(am))
   assert_that(is.character(weekend) && noNA(weekend))
   assert_that(is.null(holidays) || is.date(holidays))
   assert_that(is.number(alpha) && noNA(alpha))
   assert_that(is.flag(weighted) && noNA(weighted))
- 
+  
   if (am > 1 || am < 0) stop("am must be a probability")
   if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
   
@@ -113,7 +101,7 @@ trad_one_access <- function(data, am = 0.5,
   
   if (!all(data$Period %in% c("AM", "PM")))
     stop("the values in the data Period column must be 'AM' or 'PM'")
-
+  
   data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
     dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "RodHours"))) %>%
     dplyr::ungroup()
@@ -126,13 +114,16 @@ trad_one_access <- function(data, am = 0.5,
   data$Year <- lubridate::year(data$Date)
   data$Month <- lubridate::month(data$Date)
   
+  data$Effort <- data$RodHours
+  
+  data %<>% tidyr::gather_("Parameter", "Value", c("Effort", "Catch"))
+  
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
-  data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
-                           "daily_cat" = "Catch / Probability")
   
-  data %<>% dplyr::select_(~Year, ~Month, ~DayType, ~Period, ~Probability, 
-                           ~daily_eff, ~daily_cat)
+  data %<>% dplyr::select_(~Year, ~Month, ~Parameter, ~DayType, ~Period, ~Probability, ~Value)
   
-  plyr::ddply(data, c("Year", "Month"), .fun = trad_one_access_month, weekend = weekend, 
+  plyr::ddply(data, c("Year", "Month", "Parameter"), .fun = trad_one_access_month, 
+              weekend = weekend, 
               holidays = holidays, alpha = alpha, weighted = weighted)
+  
 }
