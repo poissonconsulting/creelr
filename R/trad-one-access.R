@@ -46,11 +46,9 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   sample_n <- matrix(rep(samplen, 2), nrow = 2, byrow = T)
   total_n <- matrix(rep(totaln, 2), nrow = 2, byrow = T)
   
-  daily_data <- data
-  
-  variab <- as.factor(c(rep(1, nrow(daily_data)), rep(2, nrow(daily_data))))
-  dt <- as.factor(rep(as.numeric(daily_data$DayType),2))
-  daily <- c(daily_data$daily_eff, daily_data$daily_cat)
+  variab <- as.factor(c(rep(1, nrow(data)), rep(2, nrow(data))))
+  dt <- as.factor(rep(as.numeric(data$DayType),2))
+  daily <- c(data$daily_eff, data$daily_cat)
   data2 <- data.frame(variab, dt, daily)
   
   mean_est <- tapply(data2$daily, list(variab, dt), mean)
