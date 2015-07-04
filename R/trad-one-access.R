@@ -35,12 +35,10 @@ nday_type_month <- function(month, year, weekend, holidays) {
 
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
-  sample_days <- unique(dplyr::select_(data, ~Date, ~DayType, ~Month, ~Period, ~Probability))
-  
-  wk <- sample_days$DayType == "Week"
-  wknd <- sample_days$DayType == "Weekend"
-  w_wk <- wk * sample_days$Probability
-  w_wknd <- wknd * sample_days$Probability
+  wk <- data$DayType == "Week"
+  wknd <- data$DayType == "Weekend"
+  w_wk <- wk * data$Probability
+  w_wknd <- wknd * data$Probability
   samplen <- c(Week = sum(wk), Weekend = sum(wknd))
   wsamplen <- c(Week = sum(w_wk), Weekend = sum(w_wknd))
   totaln <- nday_type_month(data$Month[1], data$Year[1], weekend, holidays)
@@ -134,7 +132,7 @@ trad_one_access <- function(data, am = 0.5,
   data %<>% dplyr::mutate_("daily_eff" = "RodHours / Probability", 
                            "daily_cat" = "Catch / Probability")
   
-  data %<>% dplyr::select_(~Date, ~Year, ~Month, ~DayType, ~Period, ~Probability, 
+  data %<>% dplyr::select_(~Year, ~Month, ~DayType, ~Period, ~Probability, 
                            ~daily_eff, ~daily_cat)
   
   plyr::ddply(data, c("Year", "Month"), .fun = trad_one_access_month, weekend = weekend, 
