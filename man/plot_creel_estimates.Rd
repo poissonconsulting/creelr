@@ -10,7 +10,7 @@ plot_creel_estimates(data, parameter = "Catch", x = "Month")
 \item{data}{A data.frame with the columns Parameter, Estimate, Lower and Upper
 and the variable for the x-axis.}
 
-\item{parameter}{A string of the parameter to plot.}
+\item{parameter}{A string of the parameter to plot ('Catch' or 'Effort').}
 
 \item{x}{A string of the variable to plot on the x-axis.}
 }

@@ -29,8 +29,11 @@ nday_type_month <- function(month, year, weekend, holidays) {
   first <- as.Date(paste(year, month, 01, sep = "-"))
   last <- as.Date(first + months(1, abbreviate = FALSE) - lubridate::days(1))
   dates <- seq(first, last, by = "day")
-  x2 <- day_type(dates, weekend = weekend, holidays = holidays)
-  c(Week = sum(x2 == "Week"), Weekend = sum(x2 == "Weekend"))
+  day_type <- data.frame(DayType = day_type(dates, weekend = weekend, holidays = holidays))
+  dplyr::group_by_(day_type, ~DayType) %>% 
+    dplyr::summarise_(.dots = setNames(list(~n()),
+                                       c("TotalDays"))) %>%
+    dplyr::ungroup()
 }
 
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
@@ -41,8 +44,9 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
     dplyr::summarise_(.dots = setNames(list(~mean(Value), ~n(), ~var(Value), ~mean(Probability)), 
                                        c("Mean", "Days", "Variance", "Probability")))
   
-  estimate$TotalDays <- nday_type_month(data$Month[1], data$Year[1], weekend, holidays)
-  
+  estimate %<>% dplyr::inner_join(nday_type_month(data$Month[1], data$Year[1], weekend, holidays), 
+                           by = "DayType")
+
   estimate %<>% dplyr::mutate_(.dots = setNames(list(
     ~Mean * TotalDays, ~sqrt(Variance / Days * TotalDays ^ 2), ~Days * Probability), 
     c("Estimate", "SD", "WeightedDays")))

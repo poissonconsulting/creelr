@@ -18,9 +18,8 @@ test_that("day_type", {
 
 test_that("nday_type_month",{
   ndays <- nday_type_month(12, 2000, c("Saturday", "Sunday"), NULL)
-  expect_is(ndays, "integer")
-  expect_equal(names(ndays), c("Week", "Weekend"))
-  dec <- c(21, 10)
-  names(dec) <- c("Week", "Weekend")
-  expect_equal(ndays, dec)
+  expect_is(ndays, "data.frame")
+  expect_equal(colnames(ndays), c("DayType", "TotalDays"))
+  expect_equal(ndays$DayType, ordered(c("Week", "Weekend"), levels = c("Week", "Weekend")))
+  expect_equal(ndays$TotalDays, c(21, 10))
 })
