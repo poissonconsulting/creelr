@@ -22,7 +22,7 @@ plot_creel_data(toa_example, by = "Species", holidays = as.Date("2014-05-29"),
 toa_example %<>% ddply("Species", trad_one_access, weekend = c("Friday", "Saturday", "Sunday"),
                        holidays = as.Date("2014-05-29"))
 
-plot_creel_estimates(toa_example) + facet_wrap(~Species)
+plot_creel_estimates(toa_example) + facet_wrap(~Species) + ylab("Monthly Catch")
 
 sum_creel_estimates(toa_example, by = "Month")
 sum_creel_estimates(toa_example, by = "Species")
