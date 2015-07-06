@@ -1,5 +1,6 @@
-creel_sum <- function(data, alpha = 0.05){
-  data$var <- data$SD * 2
+creel_sum <- function(data, alpha){
+  
+  data %<>% dplyr::mutate_(.dots = setNames(list(~SD * 2), c("var")))
   data %<>% dplyr::select_(~Year, ~Month, ~Parameter, ~Estimate, ~var)
   sum_est <- sum(data$Estimate)
   var_est <- sum(data$var)
