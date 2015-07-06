@@ -13,11 +13,10 @@ day_type <- function(x, weekend = c("Saturday", "Sunday"), holidays = NULL) {
   assert_that(is.character(weekend) && noNA(weekend))
   assert_that(is.null(holidays) || is.date(holidays))
   
-  dtype <- lubridate::wday(x, label = TRUE, abbr = FALSE)
-  allweek <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-  levels(dtype) <- list(Week = setdiff(allweek, weekend),
-                        Weekend = weekend)
-  
+  dtype <- factor(lubridate::wday(x, label = TRUE, abbr = FALSE))
+  dtype <- dtype %in% weekend
+  dtype %<>% factor()
+  levels(dtype) <- list("Week" = FALSE, "Weekend" = TRUE)
   dtype[x %in% holidays] <- "Weekend"
   dtype
 }

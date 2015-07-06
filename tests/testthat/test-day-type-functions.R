@@ -4,7 +4,7 @@ test_that("day_type", {
   data(toa_dummy, envir = parent.frame())
   expect_error(day_type(toa_dummy))
   dt <- day_type(toa_dummy$Date)
-  expect_is(dt, "ordered")
+  expect_is(dt, "factor")
   expect_equal(as.character(dt), c("Week", "Week", "Weekend", "Weekend", "Week",
                                    "Week", "Weekend", "Weekend", "Week", "Week",
                                    "Weekend", "Weekend", "Week", "Week", "Weekend",
@@ -20,6 +20,6 @@ test_that("nday_type_month",{
   ndays <- nday_type_month(12, 2000, c("Saturday", "Sunday"), NULL)
   expect_is(ndays, "data.frame")
   expect_equal(colnames(ndays), c("DayType", "TotalDays"))
-  expect_equal(ndays$DayType, ordered(c("Week", "Weekend"), levels = c("Week", "Weekend")))
+  expect_equal(ndays$DayType, factor(c("Week", "Weekend"), levels = c("Week", "Weekend")))
   expect_equal(ndays$TotalDays, c(21, 10))
 })
