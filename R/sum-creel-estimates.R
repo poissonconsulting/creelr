@@ -1,15 +1,9 @@
 creel_sum <- function(data, alpha){
-  
-  data %<>% dplyr::mutate_(.dots = setNames(list(~SD ^ 2), c("var")))
-  data %<>% dplyr::select_(~Year, ~Month, ~Parameter, ~Estimate, ~var)
-  sum_est <- sum(data$Estimate)
-  var_est <- sum(data$var)
-  sd_est <- sqrt(var_est)
-  lower <- sum_est - sd_est * qnorm(1 - alpha)
-  upper <- sum_est + sd_est * qnorm(1 - alpha)  
-  result <- data.frame(sum_est, sd_est, lower, upper, row.names = NULL)
-  names(result) <- c("Sum_Estimate", "SD", "Lower", "Upper")  
-  result
+  dplyr::summarise_(data, .dots = setNames(list(~sum(Estimate), ~sqrt(sum(SD ^ 2))), 
+                                       c("Estimate", "SD")))  %>%
+    dplyr::mutate_(.dots = setNames(list(~Estimate - SD * qnorm(1 - alpha),
+                                         ~Estimate + SD * qnorm(1 - alpha)), 
+                                   c("Lower", "Upper")))
 }
 
 #' Sum Creel Estimates
