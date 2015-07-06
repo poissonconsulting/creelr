@@ -28,5 +28,3 @@ toa_example %<>% ddply("Species", trad_one_access, weekend = c("Friday", "Saturd
 plot_creel_estimates(toa_example) + facet_wrap(~Species)
 
 sum_creel_estimates(toa_example, by = "Species")
-
-
