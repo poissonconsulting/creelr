@@ -6,7 +6,8 @@
 \alias{creelr-package}
 \title{Analysis of Angler Creel Data}
 \description{
-Implements the Traditional Access Design for One Access Site.
+A prototype R package to Analyse Angler Creel Survey Data. Currently only the
+Traditional Access Design for One Access Site is implemented.
 }
 \examples{
 \dontrun{

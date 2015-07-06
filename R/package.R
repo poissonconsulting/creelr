@@ -1,6 +1,7 @@
 #' Analysis of Angler Creel Data 
 #' 
-#' Implements the Traditional Access Design for One Access Site.
+#' A prototype R package to Analyse Angler Creel Survey Data. Currently only the
+#' Traditional Access Design for One Access Site is implemented.
 #' 
 #' @docType package
 #' @name creelr

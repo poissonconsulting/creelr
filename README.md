@@ -2,17 +2,23 @@
 
 # creelr
  
-A Prototype R package to Analyse Creel Survey Data
+A prototype R package to Analyse Angler Creel Survey Data. Currently only the
+Traditional Access Design for One Access Site is implemented.
 
-## Install
+## Installation
 
-To install the latest version of creelr:
+To install and load the latest version of creelr:
 
     install.packages("devtools")
     devtools::install_github("poissonconsulting/creelr", dependencies = TRUE)
     library(creelr)
+
+## Information
+
+For more information type `?creelr` at the R console after installing and
+loading the package.
     
-## Contact
+## Contributions
 
 You are welcome to:
 

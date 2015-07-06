@@ -1,7 +1,8 @@
 #' Plot Creel Estimates
 #'
-#' @param data A data.frame with the columns Month, Parameter, Estimate and SE.
-#' @param parameter A string of the parameter to filter by.
+#' @param data A data.frame with the columns Parameter, Estimate, Lower and Upper
+#' and the variable for the x-axis.
+#' @param parameter A string of the parameter to plot ('Catch' or 'Effort').
 #' @param x A string of the variable to plot on the x-axis.
 #' @return A \code{\link{ggplot}} object.
 #' @export
@@ -21,9 +22,8 @@ plot_creel_estimates <- function(data, parameter = "Catch", x = "Month") {
                                  Lower = "numeric",
                                  Upper = "numeric"))
 
-  
   data %<>% dplyr::filter_(~Parameter == parameter)
   ggplot2::ggplot(data = data, ggplot2::aes_string(x = x, y = "Estimate")) +
     ggplot2::geom_pointrange(ggplot2::aes_string(ymin = "Lower", ymax = "Upper")) +
-    ggplot2::expand_limits(y = 0) + ggplot2::ylab(parameter)
+    ggplot2::expand_limits(y = 0)
 }
