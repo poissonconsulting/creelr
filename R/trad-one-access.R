@@ -68,6 +68,9 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
 }
 
 process_trad_one_access <- function(data, weekend, holidays) {
+  if (!all(data$Period %in% c("AM", "PM")))
+    stop("the values in the data Period column must be 'AM' or 'PM'")
+  
   data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
     dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "Effort"))) %>%
     dplyr::ungroup()
@@ -112,13 +115,11 @@ trad_one_access <- function(data, am = 0.5,
   if (am > 1 || am < 0) stop("am must be a probability")
   if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
   
+  check_rows(data)
   check_columns(data, c("Date", "Period", "RodHours", "Catch"))
   check_class_columns(data, list(Date = "Date", Period = c("character", "factor"), 
                                  RodHours = c("numeric", "integer"), 
                                  Catch = c("numeric", "integer")))
-  
-  if (!all(data$Period %in% c("AM", "PM")))
-    stop("the values in the data Period column must be 'AM' or 'PM'")
   
   data %<>% process_trad_one_access(weekend = weekend, holidays = holidays) 
   

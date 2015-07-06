@@ -23,6 +23,6 @@ Plot Creel Estimates
 \examples{
 library(ggplot2)
 data(toa_example)
-plot_creel_estimates(trad_one_access(toa_example)) + ylab("Catch")
+plot_creel_estimates(trad_one_access(toa_example)) + ylab("Monthly Catch")
 }
 
