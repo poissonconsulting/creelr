@@ -8,20 +8,12 @@
 #' library(ggplot2)
 #' data(toa_example)
 #' plot_creel_data(toa_example) + ylab("Daily Catch")
-plot_creel_data <- function(data, weekend = c("Saturday", "Sunday"),
+plot_creel_data <- function(data, am = 0.5, weekend = c("Saturday", "Sunday"),
                             holidays = NULL, parameter = "Catch") {
   
-  assert_that(is.data.frame(data))
-  assert_that(is.character(weekend) && noNA(weekend))
-  assert_that(is.null(holidays) || is.date(holidays))
+  check_trad_one_access(data = data, am = am, weekend = weekend, holidays = holidays)
   
-  check_rows(data)
-  check_columns(data, c("Date", "Period", "RodHours", "Catch"))
-  check_class_columns(data, list(Date = "Date", Period = c("character", "factor"), 
-                                 RodHours = c("numeric", "integer"), 
-                                 Catch = c("numeric", "integer")))
-
-  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays) 
+  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays, am = am) 
   
   data %<>% dplyr::filter_(~Parameter == parameter)
   

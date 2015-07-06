@@ -67,10 +67,7 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
                                      ~WKND, ~Coverage_WK, ~Coverage_WKND))
 }
 
-process_trad_one_access <- function(data, weekend, holidays) {
-  if (!all(data$Period %in% c("AM", "PM")))
-    stop("the values in the data Period column must be 'AM' or 'PM'")
-  
+process_trad_one_access <- function(data, weekend, holidays, am) {
   data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
     dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "Effort"))) %>%
     dplyr::ungroup()
@@ -83,7 +80,29 @@ process_trad_one_access <- function(data, weekend, holidays) {
   data$Year <- lubridate::year(data$Date)
   data$Month <- lubridate::month(data$Date)
   
+  data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
+  
   tidyr::gather_(data, "Parameter", "Value", c("Effort", "Catch"))
+}
+
+check_trad_one_access <- function(data, am = 0.5, 
+                                  weekend = c("Saturday", "Sunday"),
+                                  holidays = NULL) {
+  assert_that(is.data.frame(data))
+  assert_that(is.number(am) && noNA(am))
+  assert_that(is.character(weekend) && noNA(weekend))
+  assert_that(is.null(holidays) || is.date(holidays))
+  
+  if (am > 1 || am < 0) stop("am must be a probability")
+  
+  check_rows(data)
+  check_columns(data, c("Date", "Period", "RodHours", "Catch"))
+  check_class_columns(data, list(Date = "Date", Period = c("character", "factor"), 
+                                 RodHours = c("numeric", "integer"), 
+                                 Catch = c("numeric", "integer")))
+  if (!all(data$Period %in% c("AM", "PM")))
+    stop("the values in the data Period column must be 'AM' or 'PM'")
+  TRUE
 }
 
 #' Traditional One Access
@@ -105,25 +124,15 @@ trad_one_access <- function(data, am = 0.5,
                             weekend = c("Saturday", "Sunday"),
                             holidays = NULL, 
                             alpha = 0.05, weighted = FALSE) {
-  assert_that(is.data.frame(data))
-  assert_that(is.number(am) && noNA(am))
-  assert_that(is.character(weekend) && noNA(weekend))
-  assert_that(is.null(holidays) || is.date(holidays))
+  
   assert_that(is.number(alpha) && noNA(alpha))
   assert_that(is.flag(weighted) && noNA(weighted))
   
-  if (am > 1 || am < 0) stop("am must be a probability")
   if (alpha > 1 || alpha < 0) stop("alpha must be a probability")
   
-  check_rows(data)
-  check_columns(data, c("Date", "Period", "RodHours", "Catch"))
-  check_class_columns(data, list(Date = "Date", Period = c("character", "factor"), 
-                                 RodHours = c("numeric", "integer"), 
-                                 Catch = c("numeric", "integer")))
+  check_trad_one_access(data = data, am = am, weekend = weekend, holidays = holidays)
   
-  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays) 
-  
-  data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
+  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays, am = am) 
   
   plyr::ddply(data, c("Year", "Month", "Parameter"), .fun = trad_one_access_month, 
               weekend = weekend, 

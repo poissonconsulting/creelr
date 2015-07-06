@@ -4,11 +4,13 @@
 \alias{plot_creel_data}
 \title{Plot Creel Data}
 \usage{
-plot_creel_data(data, weekend = c("Saturday", "Sunday"), holidays = NULL,
-  parameter = "Catch")
+plot_creel_data(data, am = 0.5, weekend = c("Saturday", "Sunday"),
+  holidays = NULL, parameter = "Catch")
 }
 \arguments{
 \item{data}{A data.frame containing Date, Period, RodHours and Catch columns.}
+
+\item{am}{A number indicating the weighting for the AM period (by default 0.5).}
 
 \item{weekend}{A string indicating the days to be considered weekend.}
 
