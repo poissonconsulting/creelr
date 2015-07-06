@@ -37,8 +37,6 @@ nday_type_month <- function(month, year, weekend, holidays) {
 
 trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
-  data %<>% dplyr::mutate_(.dots = setNames(list(~Value / Probability), c("Value")))
-  
   estimate <- dplyr::group_by_(data, .dots = list(~DayType)) %>% 
     dplyr::summarise_(.dots = setNames(list(~mean(Value), ~n(), ~var(Value), ~mean(Probability)), 
                                        c("Mean", "Days", "Variance", "Probability")))
@@ -82,7 +80,8 @@ process_trad_one_access <- function(data, weekend, holidays, am) {
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   
-  tidyr::gather_(data, "Parameter", "Value", c("Effort", "Catch"))
+  tidyr::gather_(data, "Parameter", "Value", c("Effort", "Catch")) %>% 
+    dplyr::mutate_(.dots = setNames(list(~Value / Probability), c("Value")))
 }
 
 check_trad_one_access <- function(data, am = 0.5, 

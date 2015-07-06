@@ -5,14 +5,16 @@ library(ggplot2)
 
 data(toa_dummy)
 
-plot_creel_data(toa_dummy) + ylab("Daily Catch")
+plot_creel_data(toa_dummy, am = 0.5) + ylab("Daily Catch")
 
 toa_dummy <- trad_one_access(toa_dummy)
 
 plot_creel_estimates(toa_dummy) + ylab("Monthly Catch")
 
-
 data(toa_example)
+
+plot_creel_data(toa_example, am = 0.5) + ylab("Daily Catch")
+
 trad_one_access(toa_example, holidays = as.Date("2014-05-29"), 
                 weekend = c("Friday", "Saturday", "Sunday"))
 trad_one_access(toa_example)
