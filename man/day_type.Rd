@@ -11,7 +11,7 @@ day_type(x, weekend = c("Saturday", "Sunday"), holidays = NULL)
 
 \item{weekend}{A string indicating the days to be considered weekend.}
 
-\item{holidays}{A Date containing holidays that can be treated as weekends.}
+\item{holidays}{A Date vector of weekday holidays that can be treated as weekends.}
 }
 \value{
 A factor of the day types ('Week' or 'Weekend').

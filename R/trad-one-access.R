@@ -67,19 +67,18 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
                               ~WKND, ~Coverage_WK, ~Coverage_WKND))
 }
 
-
-#' Traditional One Access Estimates
+#' Traditional One Access
+#' 
+#' Calculates estimates for Traditional Access Design for One Access Site.
 #'
-#' @param data A data.frame containing Date, Period, RodHours and Catch.
-#' @param am A number indicating the weighting for the AM period.
+#' @param data A data.frame containing Date, Period, RodHours and Catch columns.
+#' @param am A number indicating the weighting for the AM period (by default 0.5).
 #' @param weekend A string indicating the days to be considered weekend.
-#' @param holidays A Date containing holidays that can be treated as weekends.
+#' @param holidays A Date vector of weekday holidays that can be treated as weekends.
 #' @param alpha A number indicating the significance level desired for the confidence intervals.
 #' @param weighted A flag that indicates whether the sampling coverage should weight by Period.
-#'
 #' @return A data.frame with the total effort and catch estimates, confidence intervals, in-week and weekend days and sampling coverage
 #' @export
-#'
 #' @examples
 #' data(toa_dummy)
 #' trad_one_access(toa_dummy)
@@ -106,7 +105,7 @@ trad_one_access <- function(data, am = 0.5,
     stop("the values in the data Period column must be 'AM' or 'PM'")
   
   data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
-    dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "RodHours"))) %>%
+    dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "Effort"))) %>%
     dplyr::ungroup()
   
   if (anyDuplicated(data$Date)) stop("Only one time period allowed per day")
@@ -117,13 +116,9 @@ trad_one_access <- function(data, am = 0.5,
   data$Year <- lubridate::year(data$Date)
   data$Month <- lubridate::month(data$Date)
   
-  data$Effort <- data$RodHours
-  
   data %<>% tidyr::gather_("Parameter", "Value", c("Effort", "Catch"))
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
-  
-  data %<>% dplyr::select_(~Year, ~Month, ~Parameter, ~DayType, ~Period, ~Probability, ~Value)
   
   plyr::ddply(data, c("Year", "Month", "Parameter"), .fun = trad_one_access_month, 
               weekend = weekend, 

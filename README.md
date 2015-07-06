@@ -12,6 +12,8 @@ To install and load the latest version of creelr:
     install.packages("devtools")
     devtools::install_github("poissonconsulting/creelr", dependencies = TRUE)
     library(creelr)
+    
+> Note: Windows users have to first install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) to use `devtools`.
 
 ## Information
 

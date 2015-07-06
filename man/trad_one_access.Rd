@@ -2,19 +2,19 @@
 % Please edit documentation in R/trad-one-access.R
 \name{trad_one_access}
 \alias{trad_one_access}
-\title{Traditional One Access Estimates}
+\title{Traditional One Access}
 \usage{
 trad_one_access(data, am = 0.5, weekend = c("Saturday", "Sunday"),
   holidays = NULL, alpha = 0.05, weighted = FALSE)
 }
 \arguments{
-\item{data}{A data.frame containing Date, Period, RodHours and Catch.}
+\item{data}{A data.frame containing Date, Period, RodHours and Catch columns.}
 
-\item{am}{A number indicating the weighting for the AM period.}
+\item{am}{A number indicating the weighting for the AM period (by default 0.5).}
 
 \item{weekend}{A string indicating the days to be considered weekend.}
 
-\item{holidays}{A Date containing holidays that can be treated as weekends.}
+\item{holidays}{A Date vector of weekday holidays that can be treated as weekends.}
 
 \item{alpha}{A number indicating the significance level desired for the confidence intervals.}
 
@@ -24,7 +24,7 @@ trad_one_access(data, am = 0.5, weekend = c("Saturday", "Sunday"),
 A data.frame with the total effort and catch estimates, confidence intervals, in-week and weekend days and sampling coverage
 }
 \description{
-Traditional One Access Estimates
+Calculates estimates for Traditional Access Design for One Access Site.
 }
 \examples{
 data(toa_dummy)
