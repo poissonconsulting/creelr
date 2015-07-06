@@ -44,8 +44,8 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
                                        c("Mean", "Days", "Variance", "Probability")))
   
   estimate %<>% dplyr::inner_join(nday_type_month(data$Month[1], data$Year[1], weekend, holidays), 
-                           by = "DayType")
-
+                                  by = "DayType")
+  
   estimate %<>% dplyr::mutate_(.dots = setNames(list(
     ~Mean * TotalDays, ~sqrt(Variance / Days * TotalDays ^ 2), ~Days * Probability), 
     c("Estimate", "SD", "WeightedDays")))
@@ -56,15 +56,31 @@ trad_one_access_month <- function(data, weekend, holidays, alpha, weighted) {
   
   total$WK <- estimate$TotalDays[estimate$DayType == "Week"]
   total$WKND <- estimate$TotalDays[estimate$DayType == "Weekend"]
-
+  
   if (weighted)
-   estimate$Days <- estimate$WeightedDays
-
+    estimate$Days <- estimate$WeightedDays
+  
   total$Coverage_WK <- estimate$Days[estimate$DayType == "Week"]
   total$Coverage_WKND <- estimate$Days[estimate$DayType == "Weekend"] 
   
   dplyr::select_(total, .dots = list(~Estimate, ~SD, ~Lower, ~Upper, ~WK, 
-                              ~WKND, ~Coverage_WK, ~Coverage_WKND))
+                                     ~WKND, ~Coverage_WK, ~Coverage_WKND))
+}
+
+process_trad_one_access <- function(data, weekend, holidays) {
+  data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
+    dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "Effort"))) %>%
+    dplyr::ungroup()
+  
+  if (anyDuplicated(data$Date)) stop("Only one time period allowed per day")
+  
+  data$DayType <- day_type(data$Date, weekend, holidays)
+  
+  data$Period %<>% factor(levels = c("AM", "PM"))
+  data$Year <- lubridate::year(data$Date)
+  data$Month <- lubridate::month(data$Date)
+  
+  tidyr::gather_(data, "Parameter", "Value", c("Effort", "Catch"))
 }
 
 #' Traditional One Access
@@ -104,19 +120,7 @@ trad_one_access <- function(data, am = 0.5,
   if (!all(data$Period %in% c("AM", "PM")))
     stop("the values in the data Period column must be 'AM' or 'PM'")
   
-  data %<>% dplyr::group_by_(.dots = list(~Date, ~Period)) %<>% 
-    dplyr::summarise_(.dots = setNames(list(~sum(Catch), ~sum(RodHours)), c("Catch", "Effort"))) %>%
-    dplyr::ungroup()
-  
-  if (anyDuplicated(data$Date)) stop("Only one time period allowed per day")
-  
-  data$DayType <- day_type(data$Date, weekend, holidays)
-  
-  data$Period %<>% factor(levels = c("AM", "PM"))
-  data$Year <- lubridate::year(data$Date)
-  data$Month <- lubridate::month(data$Date)
-  
-  data %<>% tidyr::gather_("Parameter", "Value", c("Effort", "Catch"))
+  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays) 
   
   data$Probability <- c(am, 1 - am)[as.integer(data$Period)]
   
