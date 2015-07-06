@@ -2,6 +2,7 @@
 #'
 #' @inheritParams trad_one_access
 #' @param parameter A string of the parameter to plot ('Catch' or 'Effort').
+#' @param by A character vector of variables to group by.
 #' @return A \code{\link{ggplot}} object.
 #' @export
 #' @examples
@@ -9,16 +10,17 @@
 #' data(toa_example)
 #' plot_creel_data(toa_example) + ylab("Daily Catch")
 plot_creel_data <- function(data, am = 0.5, weekend = c("Saturday", "Sunday"),
-                            holidays = NULL, parameter = "Catch") {
+                            holidays = NULL, parameter = "Catch", by = NULL) {
+  assert_that(is.null(by) || is.character(by))
   
   check_trad_one_access(data = data, am = am, weekend = weekend, holidays = holidays)
   
-  data %<>% process_trad_one_access(weekend = weekend, holidays = holidays, am = am) 
+  data %<>% plyr::ddply(by, process_trad_one_access, weekend = weekend, holidays = holidays, am = am) 
   
   data %<>% dplyr::filter_(~Parameter == parameter)
   
   ggplot2::ggplot(data = data, ggplot2::aes_string(x = "Date", y = "Value")) +
-    ggplot2::geom_point(ggplot2::aes_string(shape = "DayType", color = "DayType")) +
+    ggplot2::geom_point(ggplot2::aes_string(shape = "DayType", color = "Period")) +
     ggplot2::expand_limits(y = 0)
 }
 

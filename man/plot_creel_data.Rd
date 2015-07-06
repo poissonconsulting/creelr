@@ -5,7 +5,7 @@
 \title{Plot Creel Data}
 \usage{
 plot_creel_data(data, am = 0.5, weekend = c("Saturday", "Sunday"),
-  holidays = NULL, parameter = "Catch")
+  holidays = NULL, parameter = "Catch", by = NULL)
 }
 \arguments{
 \item{data}{A data.frame containing Date, Period, RodHours and Catch columns.}
@@ -17,6 +17,8 @@ plot_creel_data(data, am = 0.5, weekend = c("Saturday", "Sunday"),
 \item{holidays}{A Date vector of weekday holidays that can be treated as weekends.}
 
 \item{parameter}{A string of the parameter to plot ('Catch' or 'Effort').}
+
+\item{by}{A character vector of variables to group by.}
 }
 \value{
 A \code{\link{ggplot}} object.
