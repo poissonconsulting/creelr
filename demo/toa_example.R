@@ -3,14 +3,6 @@ library(tidyr)
 library(magrittr)
 library(ggplot2)
 
-data(toa_dummy)
-
-plot_creel_data(toa_dummy, am = 0.5) + ylab("Daily Catch")
-
-toa_dummy <- trad_one_access(toa_dummy)
-
-plot_creel_estimates(toa_dummy) + ylab("Monthly Catch")
-
 data(toa_example)
 
 plot_creel_data(toa_example, am = 0.5) + ylab("Daily Catch")
@@ -27,7 +19,7 @@ sum_creel_estimates(toa_results, alpha = 0.10)
 sum_creel_estimates(toa_results, by = "Month")
 
 toa_example %<>% gather(key = "Species", value = "Catch", 
-                      Catch, KOCatch, CTCatch, RBCatch, BTCatch, LTCatch)
+                        Catch, KOCatch, CTCatch, RBCatch, BTCatch, LTCatch)
 
 toa_example$Species %<>% sub("(.+)(Catch)", "\\1", .)
 
