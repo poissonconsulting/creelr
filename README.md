@@ -9,11 +9,16 @@ Traditional Access Design for One Access Site is implemented.
 
 To install and load the latest version of creelr:
 
-    install.packages("devtools")
-    devtools::install_github("poissonconsulting/creelr", dependencies = TRUE)
-    library(creelr)
-    
-> Note: Windows users have to first install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) to use `devtools`.
+```
+install.packages("drat")
+drat::addRepo("poissonconsulting")
+install.packages("creelr", dependencies = TRUE)
+library(creelr)
+```
+
+Note if you get the error
+`Line starting 'The page you're look ...' is malformed!`
+then you will have to temporarily disable [secure package downloads](https://support.rstudio.com/hc/en-us/articles/206827897-Secure-Package-Downloads-for-R).
 
 ## Information
 
