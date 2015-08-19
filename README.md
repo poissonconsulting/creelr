@@ -1,4 +1,5 @@
 [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/creelr.png?branch=master)](https://travis-ci.org/poissonconsulting/creel)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.28546.svg)](http://dx.doi.org/10.5281/zenodo.28546)
 
 # creelr
  
