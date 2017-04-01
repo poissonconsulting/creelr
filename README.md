@@ -1,5 +1,7 @@
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 [![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/creelr.png?branch=master)](https://travis-ci.org/poissonconsulting/creel)
 [![DOI](https://zenodo.org/badge/10250/poissonconsulting/creelr.svg)](https://zenodo.org/badge/latestdoi/10250/poissonconsulting/creelr)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # creelr
  
