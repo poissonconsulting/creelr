@@ -1,8 +1,8 @@
 Package: creelr
 Type: Package
 Title: Analysis of Angler Creel Data
-Version: 0.0.2
-Authors@R:  c(
+Version: 0.0.2.9001
+Authors@R: c(
         person("Mauricio", "Campos", role = c("aut")),
         person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
   )
@@ -22,5 +22,6 @@ Imports:
     ggplot2
 Suggests:
     tidyr,
-    testthat
-  
+    testthat,
+    covr
+RoxygenNote: 6.0.1

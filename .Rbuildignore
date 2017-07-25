@@ -3,3 +3,6 @@
 
 ^data-raw$
 ^\.travis\.yml$
+^CONDUCT\.md$
+^appveyor\.yml$
+^codecov\.yml$

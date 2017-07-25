@@ -133,8 +133,10 @@ trad_one_access <- function(data, am = 0.5,
   
   data %<>% process_trad_one_access(weekend = weekend, holidays = holidays, am = am) 
   
-  plyr::ddply(data, c("Year", "Month", "Parameter"), .fun = trad_one_access_month, 
+  data %<>% plyr::ddply(c("Year", "Month", "Parameter"), .fun = trad_one_access_month, 
               weekend = weekend, 
               holidays = holidays, alpha = alpha, weighted = weighted)
   
+  data <- data[rev(order(data$Parameter)),]
+  data
 }

@@ -31,5 +31,7 @@ sum_creel_estimates <- function (data, by = "Year", alpha = 0.05) {
                                  Estimate = "numeric",
                                  SD = "numeric"))
   
-  plyr::ddply(data, c(by, "Parameter"), .fun = creel_sum, alpha)
+  data %<>% plyr::ddply(c(by, "Parameter"), .fun = creel_sum, alpha)
+  data <- data[rev(order(data$Parameter)),]
+  data
 } 
