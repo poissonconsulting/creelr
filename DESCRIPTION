@@ -1,7 +1,7 @@
 Package: creelr
-Type: Package
 Title: Analysis of Angler Creel Data
-Version: 0.0.2.9001
+Date: 2018
+Version: 0.0.2.9002
 Authors@R: c(
         person("Mauricio", "Campos", role = c("aut")),
         person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
@@ -24,4 +24,4 @@ Suggests:
     tidyr,
     testthat,
     covr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
