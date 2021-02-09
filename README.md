@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<!-- badges: start -->
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: start --> [![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R build
 status](https://github.com/poissonconsulting/creelr/workflows/R-CMD-check/badge.svg)](https://github.com/poissonconsulting/creelr/actions)
 [![Codecov test
@@ -25,20 +25,19 @@ To install the latest development version from
 
 ## Citation
 
-    Warning in citation(package = "creelr"): could not determine year for 'creelr'
-    from package DESCRIPTION file
-    
+
     To cite package 'creelr' in publications use:
-    
-      Mauricio Campos and Joe Thorley (NA). creelr: Analysis of Angler
+
+      Mauricio Campos and Joe Thorley (2021). creelr: Analysis of Angler
       Creel Data. R package version 0.0.2.9002.
       https://github.com/poissonconsulting/creelr
-    
+
     A BibTeX entry for LaTeX users is
-    
+
       @Manual{,
         title = {creelr: Analysis of Angler Creel Data},
         author = {Mauricio Campos and Joe Thorley},
+        year = {2021},
         note = {R package version 0.0.2.9002},
         url = {https://github.com/poissonconsulting/creelr},
       }
